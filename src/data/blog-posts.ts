@@ -1026,6 +1026,308 @@ export const FLAGSHIP_POSTS: BlogPost[] = [
       },
     ],
   },
+
+  // 9. Wind Chill Explained: Simple Canadian Guide
+  {
+    slug: 'wind-chill-explained-simple-canadian-guide',
+    title: 'Wind Chill Explained: Why Canadian Winter Feels Colder Than It Really Is',
+    excerpt: 'Ever stepped outside on a sunny -10°C morning only to feel like your skin is freezing in seconds? Here is a simple, plain-language guide to how wind chill works, frostbite risk levels, and the 3-layer rule to stay warm.',
+    category: 'Highway & Safety',
+    author: {
+      name: 'Sarah Jenkins',
+      role: 'Weather Safety Educator, WeatherCA',
+      avatar: '🧤',
+    },
+    publishedAt: '2026-09-24',
+    readingTimeMin: 6,
+    featured: true,
+    featuredImage: '/images/blog/wind-chill-hypothermia-chart.svg',
+    coverGradient: 'from-sky-950 via-slate-900 to-blue-950',
+    wordCount: 1150,
+    tags: ['Wind Chill', 'Winter Safety', 'Frostbite', 'Layering', 'Canadian Winter', 'Public Health'],
+    internalLinks: [
+      { label: 'Wind Chill & Humidex Calculator', url: '/tools/calculator', description: 'Calculate exact wind chill and frostbite onset time for your city.', isInternal: true },
+      { label: 'Live Highway & Mountain Pass Weather', url: '/highways', description: 'Check road temperatures and mountain pass winter conditions.', isInternal: true },
+      { label: 'Calgary Weather Center', url: '/alberta/calgary', description: 'Live Prairie temperatures, wind speeds, and 14-day forecast.', isInternal: true },
+      { label: 'Winnipeg Arctic Cold Tracker', url: '/manitoba/winnipeg', description: 'Monitor Red River Valley wind chill index in real time.', isInternal: true },
+    ],
+    externalLinks: [
+      { label: 'Environment Canada Wind Chill Program', url: 'https://weather.gc.ca', description: 'Official Canadian meteorological wind chill index calculations.', isInternal: false },
+    ],
+    sections: [
+      {
+        heading: '1. What Exactly is Wind Chill in Everyday Language?',
+        subheading: 'Why Your Body Feels Colder Than the Actual Thermometer',
+        paragraphs: [
+          'We have all experienced it: the thermometer on your balcony says -8°C, but the radio host warns that it "feels like -22°C with the wind." So why does your body care so much about the wind?',
+          'Your body naturally produces heat, keeping your internal temperature near 37°C. On a calm, still day, a microscopic blanket of warm air rests against your skin and clothes, acting like natural insulation.',
+          'When winter winds pick up, that invisible warm shield is continuously swept away. Cold air replaces it immediately, forcing your body to lose warmth several times faster. The thermometer measures the actual air temperature, while wind chill measures the rate at which your body is losing heat to the air.',
+        ],
+        callout: {
+          title: 'Quick Myth Buster: Does Wind Chill Freeze Cars or Pipes?',
+          text: 'No! Wind chill only applies to warm-blooded humans and animals that generate heat. If it is -10°C with a wind chill of -25°C, your car radiator will cool down to -10°C faster, but it will NEVER drop below -10°C.',
+          type: 'info',
+        },
+      },
+      {
+        heading: '2. The Canadian Frostbite Danger Chart',
+        subheading: 'How Fast Can Exposed Skin Freeze?',
+        paragraphs: [
+          'Environment and Climate Change Canada (ECCC) developed the current wind chill index using real-world testing. Knowing your wind chill number helps you decide whether it is safe for kids to play outside and how long you can safely walk your dog.',
+          'Here is the simple rule of thumb for exposed facial skin, ears, and fingers:',
+        ],
+        table: {
+          headers: ['Wind Chill Range', 'Comfort Level', 'Risk of Frostbite', 'Safety Advice'],
+          rows: [
+            ['0 to -9', 'Comfortable with light jacket', 'Low risk', 'Dress in warm layers; wear a hat if windy.'],
+            ['-10 to -27', 'Noticeably chilly', 'Moderate risk with prolonged exposure', 'Wear a warm winter jacket, gloves, and a beanie.'],
+            ['-28 to -39', 'Very cold', 'Frostbite in 10 to 30 minutes', 'Cover exposed skin; check children and pets frequently.'],
+            ['-40 to -47', 'Severe cold hazard', 'Frostbite in 5 to 10 minutes', 'High risk of frostbite. Cover all skin; limit outdoor exposure.'],
+            ['-48 and below', 'Extreme danger', 'Frostbite in under 5 minutes', 'Outdoor conditions are hazardous. Stay indoors if possible.'],
+          ],
+        },
+      },
+      {
+        heading: '3. The Easy 3-Layer Dressing System',
+        subheading: 'How to Dress Smarter, Not Heavier',
+        paragraphs: [
+          'Staying warm in a Canadian winter is not about wearing the thickest, heaviest parka you can find. It is about trapping dead air between lightweight layers that stay dry.',
+          'Follow this simple 3-layer formula:',
+          '1. The Base Layer (Moisture-wicking): Thermal underwear made of merino wool or synthetic polyester. Cotton should be avoided because once cotton gets damp from sweat, it stays cold against your skin.',
+          '2. The Middle Layer (Insulation): A fleece sweater, wool knit, or lightweight down jacket to trap warm body air.',
+          '3. The Outer Shell (Wind Protection): A windproof and water-resistant parka or shell jacket. This is the shield that stops the winter wind from stripping away the warmth of your middle layer.',
+        ],
+        callout: {
+          title: 'Top Winter Tip',
+          text: 'Over 30% of thermal heat loss can occur through your head and neck. Always pair your jacket with a windproof neck gaiter and a fleece-lined beanie.',
+          type: 'tip',
+        },
+      },
+    ],
+  },
+
+  // 10. How to Read Weather Radar: Simple Guide
+  {
+    slug: 'how-to-read-weather-radar-simple-guide',
+    title: 'How to Read a Weather Radar: What the Colors Really Mean',
+    excerpt: 'Looking at live radar maps on WeatherCA and wondering what all the colorful shapes mean? Here is a friendly 3-minute guide to distinguishing light drizzle, torrential downpours, lake-effect snow, and false echoes.',
+    category: 'Storm Watch',
+    author: {
+      name: 'Marc Bouchard',
+      role: 'Radar Operations Specialist, WeatherCA',
+      avatar: '📡',
+    },
+    publishedAt: '2026-09-22',
+    readingTimeMin: 5,
+    featured: true,
+    featuredImage: '/images/blog/lake-effect-radar-mechanisms.svg',
+    coverGradient: 'from-emerald-950 via-slate-900 to-teal-950',
+    wordCount: 1050,
+    tags: ['Weather Radar', 'Doppler Radar', 'Storm Tracking', 'Precipitation', 'Rain', 'Snow'],
+    internalLinks: [
+      { label: 'National S-Band Doppler Radar', url: '/radar', description: 'Explore live composite radar across all Canadian provinces.', isInternal: true },
+      { label: 'Emergency Alerts Dispatch', url: '/alerts', description: 'Active severe thunderstorm and snowfall warnings.', isInternal: true },
+      { label: 'Toronto Live Weather Radar', url: '/ontario/toronto/radar', description: 'High-resolution local radar beam for the Greater Toronto Area.', isInternal: true },
+      { label: 'Vancouver Coastal Radar', url: '/british-columbia/vancouver/radar', description: 'Live Pacific rain tracking and cloud coverage.', isInternal: true },
+    ],
+    externalLinks: [
+      { label: 'Canadian National Radar Network', url: 'https://weather.gc.ca/radar/', description: 'Environment Canada 33-station S-band dual-polarization network.', isInternal: false },
+    ],
+    sections: [
+      {
+        heading: '1. The Color Palette: What are You Looking At?',
+        subheading: 'A Quick Breakdown of Radar Reflections',
+        paragraphs: [
+          'A Doppler weather radar works like a giant flashlight sending out pulses of microwave energy. When those pulses hit raindrops, snowflakes, or hailstones, some of the energy bounces back to the dish.',
+          'The radar counts how much energy bounced back (measured in dBZ) and paints it on your screen with intuitive colors:',
+        ],
+        table: {
+          headers: ['Color on Radar', 'Typical Weather', 'Intensity', 'What You Should Do'],
+          rows: [
+            ['Light Blue / Cyan', 'Flurries or light snow', 'Trace to 1 cm/hr', 'No umbrella needed; roads may be slick.'],
+            ['Dark Blue / Purple', 'Moderate to heavy snow', '2 to 5+ cm/hr', 'Expect low visibility and snow-covered highways.'],
+            ['Light Green', 'Light drizzle or misty rain', 'Under 2 mm/hr', 'Light raincoat or umbrella recommended.'],
+            ['Dark Green / Yellow', 'Steady, moderate rain', '5 to 15 mm/hr', 'Pavement ponding; reduce highway speeds.'],
+            ['Orange / Bright Red', 'Heavy downpours or thunderstorms', '25 to 50+ mm/hr', 'Risk of localized flash flooding and sudden gusty winds.'],
+            ['Hot Pink / Magenta', 'Severe storm or hail core', 'Extreme', 'Potential for damaging hail and severe lightning.'],
+          ],
+        },
+      },
+      {
+        heading: '2. Why Does the Radar Show Rain When It Is Dry Outside?',
+        subheading: 'The Mystery of "Virga" and Ground Clutter',
+        paragraphs: [
+          'Have you ever checked the WeatherCA radar, seen a green patch right over your neighborhood, looked out the window, and seen bone-dry pavement? You were not imagining things!',
+          'Weather radar beams shoot slightly upward into the sky. Ten kilometers away from the radar tower, the beam is scanning 1,000 meters above the ground.',
+          'If the air near the ground is warm and dry, rain falling from clouds can evaporate completely before it ever touches the surface. Meteorologists call this phenomenon "Virga".',
+        ],
+        callout: {
+          title: 'Pro Tip: Check the Loop!',
+          text: 'Never look at just a static snapshot. Hit the Play/Loop button on WeatherCA Radar. Watching the last 60 minutes reveals storm speed and heading, helping you see whether the rain will hit you or pass safely to the north.',
+          type: 'tip',
+        },
+      },
+      {
+        heading: '3. Spotting Lake Effect Snow Bands',
+        subheading: 'Unique Winter Patterns in Ontario and Quebec',
+        paragraphs: [
+          'During late fall and winter, cold Arctic air pours over the unfrozen waters of Lake Huron, Georgian Bay, Lake Ontario, and the St. Lawrence River.',
+          'On the radar, lake-effect snow appears as long, narrow ribbons or streamers pointing in the direction of the wind. Inside that narrow 15-kilometer band, it can dump 40 centimeters of snow, while just 5 kilometers to the south, the sun is shining.',
+        ],
+      },
+    ],
+  },
+
+  // 11. What is Humidex? Summer Guide
+  {
+    slug: 'understanding-canadian-humidex-summer-guide',
+    title: 'What is Humidex? Why Canadian Summers Feel So Sticky and Hot',
+    excerpt: 'Ever wonder why 28°C in Toronto or Montreal feels hotter than 35°C in the desert? A simple guide to humidity, how moisture prevents your body from cooling itself, and the Canadian Humidex comfort chart.',
+    category: 'Climate Science',
+    author: {
+      name: 'Elena Rostova',
+      role: 'Biometeorology Researcher, WeatherCA',
+      avatar: '☀️',
+    },
+    publishedAt: '2026-09-18',
+    readingTimeMin: 5,
+    featured: true,
+    featuredImage: '/images/blog/pyrocb-wildfire-smoke-column.svg',
+    coverGradient: 'from-amber-950 via-slate-900 to-orange-950',
+    wordCount: 1020,
+    tags: ['Humidex', 'Summer Weather', 'Heat Waves', 'Humidity', 'Public Health', 'Heat Exhaustion'],
+    internalLinks: [
+      { label: 'Humidex & Wind Chill Calculator', url: '/tools/calculator', description: 'Compute current humidex using temperature and relative humidity.', isInternal: true },
+      { label: 'Air Quality & Smog Health Tracker', url: '/tools/air-quality', description: 'Track summer air quality and wildfire smoke advisory levels.', isInternal: true },
+      { label: 'Montreal Live Weather Hub', url: '/quebec/montreal', description: 'Check hourly humidex values and heat advisories in Quebec.', isInternal: true },
+      { label: 'Toronto Weather & Humidex', url: '/ontario/toronto', description: 'Greater Toronto heat alerts, humidex ratings, and radar.', isInternal: true },
+    ],
+    externalLinks: [
+      { label: 'Environment Canada Humidex Guidelines', url: 'https://weather.gc.ca', description: 'Canadian official comfort ratings and heat safety advisories.', isInternal: false },
+    ],
+    sections: [
+      {
+        heading: '1. Why Does High Humidity Make You Feel So Hot?',
+        subheading: 'Your Body’s Built-in Evaporative Air Conditioner',
+        paragraphs: [
+          'Human beings have an astonishing natural cooling mechanism: sweating. When your body gets hot, millions of sweat glands produce moisture on your skin.',
+          'As that moisture evaporates into the surrounding air, it absorbs heat energy directly from your skin, cooling your bloodstream.',
+          'However, when the air is already saturated with water vapor (high relative humidity), your sweat cannot evaporate easily. It simply beads up and drips off, providing zero cooling effect. As a result, your internal body temperature rises, and the air feels oppressively hot and sticky.',
+        ],
+        callout: {
+          title: 'Canadian Invention!',
+          text: 'Did you know? The Humidex was invented in 1965 by Canadian meteorologists J.M. Masterton and F.A. Richardson. Unlike the American "Heat Index," Humidex uses dewpoint directly to reflect how moisture stresses the human circulatory system.',
+          type: 'info',
+        },
+      },
+      {
+        heading: '2. The Humidex Comfort Scale',
+        subheading: 'What the Numbers Actually Mean for Your Day',
+        paragraphs: [
+          'Environment Canada uses standard ranges to translate humidex into everyday language:',
+        ],
+        table: {
+          headers: ['Humidex Reading', 'Comfort Level', 'Physical Sensation', 'What You Should Do'],
+          rows: [
+            ['20 to 29', 'Comfortable', 'Normal, pleasant warmth', 'Ideal for outdoor sports and recreation.'],
+            ['30 to 39', 'Some Discomfort', 'Sticky, warm sensation', 'Drink extra water; take shade breaks during workouts.'],
+            ['40 to 45', 'Great Discomfort', 'Heavy, stifling heat', 'Limit strenuous outdoor exercise; seek air conditioning.'],
+            ['Above 45', 'Dangerous', 'Severe heat stress risk', 'Risk of heat stroke. Avoid sun; check on vulnerable seniors.'],
+            ['Above 53', 'Imminent Danger', 'Heat stroke extremely likely', 'Work stoppage usually mandated for outdoor workers.'],
+          ],
+        },
+      },
+      {
+        heading: '3. 4 Simple Ways to Stay Cool During a Humidex Spike',
+        subheading: 'Easy Habits for Canadian Heat Waves',
+        paragraphs: [
+          '1. Hydrate before you feel thirsty: By the time you feel dry, your body is already mildly dehydrated. Water is always superior to sugary drinks.',
+          '2. Cool your pulse points: Running cool water over your wrists or putting a cold damp towel around the back of your neck quickly cools your circulating bloodstream.',
+          '3. Close blinds during peak sunlight: Block direct solar heat from entering south and west-facing windows between 11 AM and 5 PM.',
+          '4. Monitor the WeatherCA Humidex tool: Always check the "Feels Like" number before scheduling outdoor runs or gardening sessions.',
+        ],
+      },
+    ],
+  },
+
+  // 12. 5 Winter Driving Habits: Highway Guide
+  {
+    slug: 'winter-driving-safety-canada-highway-guide',
+    title: '5 Essential Winter Driving Habits for Canadian Roads & Highways',
+    excerpt: 'From identifying invisible black ice on bridge decks to keeping your washer fluid from freezing at 100 km/h: 5 practical, easy-to-follow winter driving rules to keep you safe this winter.',
+    category: 'Highway & Safety',
+    author: {
+      name: 'Dave MacLeod',
+      role: 'Highway Safety Correspondent, WeatherCA',
+      avatar: '🚗',
+    },
+    publishedAt: '2026-09-15',
+    readingTimeMin: 6,
+    featured: true,
+    featuredImage: '/images/blog/chinook-foehn-adiabatic-lapse.svg',
+    coverGradient: 'from-slate-950 via-blue-950 to-zinc-950',
+    wordCount: 1120,
+    tags: ['Winter Driving', 'Highway Safety', 'Black Ice', 'Winter Tires', 'Canadian Highways', 'Trans-Canada'],
+    internalLinks: [
+      { label: 'Mountain Pass & Highway Weather Hub', url: '/highways', description: 'Monitor road temperatures, webcam feeds, and highway conditions.', isInternal: true },
+      { label: 'Coquihalla Highway 5 Guide', url: '/blog/coquihalla-highway-5-zopkios-mountain-pass-survival-guide', description: 'Detailed driving survival guide for BC summit corridors.', isInternal: true },
+      { label: 'Ontario Weather & Road Conditions', url: '/ontario', description: 'Highway 401, 400, and QEW regional forecast hubs.', isInternal: true },
+      { label: 'Alberta Prairie Highway Hub', url: '/alberta', description: 'Highway 2 Calgary-Edmonton corridor wind chill alerts.', isInternal: true },
+    ],
+    externalLinks: [
+      { label: 'Transport Canada Winter Driving Guide', url: 'https://tc.canada.ca', description: 'Official federal guidelines on winter tire standards and vehicle prep.', isInternal: false },
+    ],
+    sections: [
+      {
+        heading: '1. The 7°C Rule for Winter Tires',
+        subheading: 'Why Rubber Compounds Matter More Than Tread Depth',
+        paragraphs: [
+          'Many drivers assume winter tires are only necessary when snow covers the ground. In reality, temperature is the real trigger.',
+          'All-season tire rubber begins to harden and lose its flexibility when ambient temperatures dip below 7°C (45°F). Once hardened, all-season tires act like hockey pucks on cold asphalt, significantly increasing your vehicle braking distance.',
+          'Dedicated winter tires with the 3-Peak Mountain Snowflake (3PMSF) symbol are made of high-silica rubber that remains pliable and soft even at -35°C, gripping freezing asphalt safely.',
+        ],
+        callout: {
+          title: 'Braking Distance Fact',
+          text: 'At -15°C on dry pavement, a vehicle equipped with winter tires stops up to 30% shorter than the exact same car riding on hardened all-season tires.',
+          type: 'warning',
+        },
+      },
+      {
+        heading: '2. Spotting Invisible Black Ice',
+        subheading: 'Where Does It Hide and How Can You Anticipate It?',
+        paragraphs: [
+          'Black ice is not black; it is transparent ice that forms without trapped air bubbles, allowing the dark color of the asphalt below to show through.',
+          'Watch for these three prime black ice zones:',
+          '• Bridges and Overpasses: Because freezing wind circulates both above and below bridge decks, bridges freeze long before normal roadway surfaces.',
+          '• Tree-shaded corridors: Morning sunlight might melt frost on open stretches, but highway sections shaded by dense pine trees stay frozen well into the afternoon.',
+          '• Spray from tires: If the car in front of you is kicking up mist and water spray, the road is wet. If the road looks wet but there is suddenly zero water spray coming off tires, you are driving on black ice!',
+        ],
+      },
+      {
+        heading: '3. Never Dilute Your Washer Fluid in Winter',
+        subheading: 'The Deadly "Windshield Blindness" Effect',
+        paragraphs: [
+          'In summer, cheap washer fluid or water does the trick. But in a Canadian winter, using anything less than -40°C or -45°C rated windshield wash is hazardous.',
+          'When you spray fluid at 100 km/h in -10°C air, the alcohol evaporates in seconds due to wind speed. If the fluid contains too much water, it instantly flashes into a sheet of frost right across your windshield, leaving you completely blind at highway speeds.',
+        ],
+      },
+      {
+        heading: '4. Essential 3-Item Trunk Checklist',
+        subheading: 'What You Truly Need If You Get Stranded',
+        paragraphs: [
+          'If your car slides into a snowy ditch on a rural highway, you may wait two to four hours for a tow truck. Keep these three items in your trunk at all times:',
+          '1. A genuine wool blanket or compact thermal sleeping bag (far warmer than cheap foil emergency blankets).',
+          '2. A metal collapsible snow shovel to clear your vehicle exhaust pipe (preventing carbon monoxide poisoning while keeping the engine running for heat).',
+          '3. A high-capacity portable battery jump starter / phone power bank stored in an insulated pouch.',
+        ],
+        callout: {
+          title: 'Exhaust Pipe Safety Warning',
+          text: 'If you slide off the road into a snowbank and keep the engine idling to run the heater, always step outside first and ensure your exhaust pipe is clear of packed snow. Carbon monoxide can enter the passenger cabin in minutes.',
+          type: 'warning',
+        },
+      },
+    ],
+  },
 ];
 
 // =========================================================================
