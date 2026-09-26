@@ -20,7 +20,7 @@ import { HeroWeatherCard } from '@/components/HeroWeatherCard';
 import { BentoGrid } from '@/components/BentoGrid';
 import { WeatherRadar } from '@/components/WeatherRadar';
 
-export const revalidate = 21600; // 6-hour ISR cache
+export const revalidate = 86400; // 24-hour ISR cache
 
 export async function generateStaticParams() {
   // Prerender top featured cities for instantaneous loading

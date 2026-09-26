@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 import { PROVINCE_LIST } from '@/data/provinces';
-import { CANADIAN_CITIES } from '@/data/canadian-cities';
+import { CANADIAN_CITIES, ALL_CANADIAN_SETTLEMENTS } from '@/data/canadian-cities';
 import { CANADIAN_SKI_RESORTS } from '@/data/canadian-ski-resorts';
 import { FLAGSHIP_POSTS } from '@/data/blog-posts';
 import { SITE_CONFIG } from '@/lib/seo';
@@ -20,24 +20,56 @@ export const SITEMAP_SHARDS: SitemapShardMeta[] = [
     name: 'Core Hubs, Ski & Science Blog',
     code: 'CORE-HUB',
     description: 'National portal root, 13 provincial radar hubs, alpine ski resorts, meteorological press and operational tools.',
-    maxCapacity: 500,
+    maxCapacity: 5000,
     badgeColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
   },
   {
     id: 1,
-    name: 'Ontario & Quebec Primary Centers',
-    code: 'ON-QC-CITIES',
-    description: '100 major incorporated cities and census metropolitan areas across Ontario and Quebec.',
-    maxCapacity: 1000,
+    name: 'Ontario Municipalities & Towns (Part 1)',
+    code: 'ON-MUNICIPALITIES-1',
+    description: 'First sector of 3,500+ incorporated cities, towns, townships, and postal sectors across Ontario.',
+    maxCapacity: 5000,
     badgeColor: 'bg-sky-500/20 text-sky-300 border-sky-500/30',
   },
   {
     id: 2,
-    name: 'Western, Atlantic & Northern Hubs',
-    code: 'WEST-ATL-NORTH',
-    description: '122 primary urban centers across BC, Prairies (AB, SK, MB), Atlantic provinces and Territories.',
-    maxCapacity: 1000,
+    name: 'Ontario Part 2 & Quebec Part 1',
+    code: 'ON-QC-MUNICIPALITIES',
+    description: 'Northern Ontario districts and first 1,500 Quebec MRC municipalities and parishes.',
+    maxCapacity: 5000,
+    badgeColor: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30',
+  },
+  {
+    id: 3,
+    name: 'Quebec Municipalities & Cantons (Part 2)',
+    code: 'QC-MUNICIPALITIES',
+    description: '4,000+ Quebec cantons, coastal Gaspésie villages, Laurentian valleys, and northern communities.',
+    maxCapacity: 5000,
     badgeColor: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
+  },
+  {
+    id: 4,
+    name: 'British Columbia Municipalities & Islands',
+    code: 'BC-MUNICIPALITIES',
+    description: '4,200+ BC coastal cities, Okanagan valleys, Kootenay mountain communities, and island outposts.',
+    maxCapacity: 5000,
+    badgeColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
+  },
+  {
+    id: 5,
+    name: 'Prairies (Alberta, Saskatchewan & Manitoba)',
+    code: 'PRAIRIES-MUNICIPALITIES',
+    description: '5,000+ prairie cities, rural municipalities (RMs), hamlets, and agricultural weather hubs.',
+    maxCapacity: 6000,
+    badgeColor: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
+  },
+  {
+    id: 6,
+    name: 'Atlantic Canada & Northern Territories',
+    code: 'ATLANTIC-NORTH',
+    description: '4,100+ Atlantic coastal harbours, Newfoundland outports, PEI lots, and Arctic settlements (YT, NT, NU).',
+    maxCapacity: 5000,
+    badgeColor: 'bg-rose-500/20 text-rose-300 border-rose-500/30',
   },
 ];
 
@@ -53,14 +85,30 @@ export interface SitemapCatalogEntry {
 }
 
 /**
- * Returns the cities belonging to a specific shard ID.
+ * Returns the settlements belonging to a specific shard ID.
  */
 export function getSettlementsForShard(shardId: number) {
   if (shardId === 1) {
-    return CANADIAN_CITIES.filter((s) => ['ON', 'QC'].includes(s.provinceCode));
+    return ALL_CANADIAN_SETTLEMENTS.filter((s) => s.provinceCode === 'ON').slice(0, 3500);
   }
   if (shardId === 2) {
-    return CANADIAN_CITIES.filter((s) => !['ON', 'QC'].includes(s.provinceCode));
+    const onRemaining = ALL_CANADIAN_SETTLEMENTS.filter((s) => s.provinceCode === 'ON').slice(3500);
+    const qcPart1 = ALL_CANADIAN_SETTLEMENTS.filter((s) => s.provinceCode === 'QC').slice(0, 1500);
+    return [...onRemaining, ...qcPart1];
+  }
+  if (shardId === 3) {
+    return ALL_CANADIAN_SETTLEMENTS.filter((s) => s.provinceCode === 'QC').slice(1500);
+  }
+  if (shardId === 4) {
+    return ALL_CANADIAN_SETTLEMENTS.filter((s) => s.provinceCode === 'BC');
+  }
+  if (shardId === 5) {
+    return ALL_CANADIAN_SETTLEMENTS.filter((s) => ['AB', 'SK', 'MB'].includes(s.provinceCode));
+  }
+  if (shardId === 6) {
+    return ALL_CANADIAN_SETTLEMENTS.filter((s) =>
+      ['NS', 'NB', 'NL', 'PE', 'YT', 'NT', 'NU'].includes(s.provinceCode)
+    );
   }
   return [];
 }
@@ -131,7 +179,7 @@ export function getSitemapRoutesForShard(shardId: number, customBaseUrl?: string
   }
 
   // ==========================================
-  // SHARDS 1 & 2: Primary Canadian Cities
+  // SHARDS 1 to 6: Canadian Settlements (26k+)
   // ==========================================
   else if (shardId >= 1 && shardId < SITEMAP_SHARDS.length) {
     const settlements = getSettlementsForShard(shardId);
@@ -142,8 +190,8 @@ export function getSitemapRoutesForShard(shardId: number, customBaseUrl?: string
       routes.push({
         url: `${baseUrl}/${provSlug}/${city.slug}`,
         lastModified: now,
-        changeFrequency: 'daily',
-        priority: city.featured ? 0.85 : 0.7,
+        changeFrequency: 'weekly',
+        priority: city.featured ? 0.85 : 0.65,
       });
     }
   }
