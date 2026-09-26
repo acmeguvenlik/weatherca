@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="mountainGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="warmPlume" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(249, 115, 22, 0.4)" />
+      <stop offset="100%" stop-color="rgba(239, 68, 68, 0.1)" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="480" fill="url(#skyGrad)" />
+
+  <!-- Mountain Profile (Rockies / Continental Divide) -->
+  <polygon points="50,440 280,160 400,220 520,130 750,440" fill="url(#mountainGrad)" stroke="#64748b" stroke-width="2" />
+
+  <!-- Windward Clouds & Precipitation (Pacific Moist Ascent) -->
+  <path d="M 80,260 Q 120,200 180,210 Q 220,170 270,200 Q 280,240 250,280 L 100,280 Z" fill="#94a3b8" opacity="0.8" />
+  <g stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3,3">
+    <line x1="120" y1="280" x2="110" y2="350" />
+    <line x1="150" y1="280" x2="140" y2="360" />
+    <line x1="190" y1="280" x2="180" y2="370" />
+    <line x1="230" y1="280" x2="220" y2="360" />
+  </g>
+
+  <!-- Moist Adiabatic Ascent Arrow (Green / Cyan) -->
+  <path d="M 60,400 Q 160,320 270,180" fill="none" stroke="#38bdf8" stroke-width="4" />
+  <polygon points="275,175 260,182 268,195" fill="#38bdf8" />
+
+  <!-- Chinook Arch Cloud (Lenticular / Leeward Wave) -->
+  <ellipse cx="600" cy="110" rx="120" ry="24" fill="#f8fafc" opacity="0.85" />
+  <ellipse cx="640" cy="95" rx="80" ry="16" fill="#f1f5f9" opacity="0.9" />
+
+  <!-- Leeward Compressional Heating (Red / Orange Flow) -->
+  <polygon points="520,140 750,440 580,440 440,240" fill="url(#warmPlume)" />
+  <path d="M 525,145 Q 600,260 720,400" fill="none" stroke="#f97316" stroke-width="4.5" />
+  <polygon points="726,408 718,392 708,402" fill="#f97316" />
+
+  <!-- Thermodynamics Data Boxes -->
+  <rect x="40" y="60" width="220" height="90" rx="8" fill="#0f172a" fill-opacity="0.85" stroke="#38bdf8" stroke-width="1" />
+  <text x="55" y="85" fill="#38bdf8" font-size="12" font-weight="bold">Windward Moist Ascent</text>
+  <text x="55" y="105" fill="#e2e8f0" font-size="11">● Surface: +6°C (RH 95%)</text>
+  <text x="55" y="122" fill="#e2e8f0" font-size="11">● Moist Lapse Rate: -5.5°C/km</text>
+  <text x="55" y="139" fill="#94a3b8" font-size="10">Condensation releases latent heat</text>
+
+  <rect x="540" y="180" width="230" height="110" rx="8" fill="#0f172a" fill-opacity="0.85" stroke="#f97316" stroke-width="1" />
+  <text x="555" y="205" fill="#f97316" font-size="12" font-weight="bold">Leeward Dry Adiabatic Descent</text>
+  <text x="555" y="225" fill="#fca5a5" font-size="11">● Summit (3000m): -10.5°C</text>
+  <text x="555" y="242" fill="#fb923c" font-size="11">● Dry Lapse Rate: +9.8°C/km</text>
+  <text x="555" y="260" fill="#fef08a" font-size="11">● Foothills (Calgary): +19°C (RH 20%)</text>
+  <text x="555" y="278" fill="#cbd5e1" font-size="10">Net Thermal Gain: +13°C Warming</text>
+
+  <!-- Title -->
+  <text x="50" y="35" fill="#ffffff" font-size="14" font-weight="bold">THE ALBERTA CHINOOK (FOEHN EFFECT) ADIABATIC HEATING</text>
+</svg>

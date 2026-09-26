@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="riverBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#022c22" />
+      <stop offset="50%" stop-color="#064e3b" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <linearGradient id="vaporPlume" x1="0%" y1="0%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#a855f7" stop-opacity="0.7" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#riverBg)" />
+
+  <!-- Pacific Ocean Water & Coastline Wave Contours -->
+  <path d="M 0 320 C 200 280, 400 380, 600 320 C 750 280, 900 360, 1200 300" fill="none" stroke="#059669" stroke-width="6" opacity="0.4" />
+
+  <!-- Tropical Moisture Plume (Pineapple Express corridor from Hawaii to BC) -->
+  <g opacity="0.85">
+    <path d="M -50 480 C 250 440, 500 350, 750 220 C 900 140, 1050 120, 1250 100" 
+          fill="none" stroke="url(#vaporPlume)" stroke-width="45" stroke-linecap="round" filter="blur(8px)" />
+    <path d="M -50 480 C 250 440, 500 350, 750 220 C 900 140, 1050 120, 1250 100" 
+          fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round" />
+  </g>
+
+  <!-- British Columbia Coast Mountains Orographic Barrier -->
+  <polygon points="750,630 850,200 950,630" fill="#0f172a" stroke="#1e293b" stroke-width="3" />
+  <polygon points="900,630 1020,160 1150,630" fill="#0b0f19" stroke="#1e293b" stroke-width="3" />
+
+  <text x="850" y="190" font-family="monospace" font-size="12" font-weight="700" fill="#38bdf8">COAST MTNS (2,800m)</text>
+  <text x="1020" y="150" font-family="monospace" font-size="12" font-weight="700" fill="#38bdf8">CASCADES BARRIER</text>
+
+  <!-- Badges -->
+  <rect x="60" y="50" width="380" height="42" rx="12" fill="#0f172a" fill-opacity="0.85" stroke="#2dd4bf" stroke-opacity="0.3" />
+  <text x="80" y="76" font-family="monospace" font-size="14" font-weight="700" fill="#2dd4bf">PACIFIC ATMOSPHERIC RIVER (IVT &gt; 1000)</text>
+
+  <rect x="820" y="50" width="320" height="42" rx="12" fill="#0f172a" fill-opacity="0.85" stroke="#38bdf8" stroke-opacity="0.3" />
+  <text x="840" y="76" font-family="monospace" font-size="14" font-weight="700" fill="#38bdf8">BRITISH COLUMBIA FLOOD HAZARD</text>
+
+  <!-- Title -->
+  <text x="60" y="520" font-family="system-ui, sans-serif" font-size="38" font-weight="900" fill="#ffffff" letter-spacing="-1">
+    ATMOSPHERIC RIVERS &amp; PINEAPPLE EXPRESS
+  </text>
+  <text x="60" y="565" font-family="system-ui, sans-serif" font-size="18" font-weight="500" fill="#a7f3d0">
+    How Subtropical Moisture Corridors Deliver 300mm Rain Storms to Vancouver &amp; Vancouver Island
+  </text>
+</svg>

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="40%" stop-color="#1e1b4b" />
+      <stop offset="70%" stop-color="#451a03" />
+      <stop offset="100%" stop-color="#7c2d12" />
+    </linearGradient>
+    <linearGradient id="fireGrad" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="30%" stop-color="#f97316" />
+      <stop offset="70%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#ffffff" />
+    </linearGradient>
+    <linearGradient id="smokeAnvilGrad" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#451a03" stop-opacity="0.9" />
+      <stop offset="50%" stop-color="#475569" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#e2e8f0" stop-opacity="0.9" />
+    </linearGradient>
+    <filter id="fireGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#skyGrad)" />
+
+  <!-- Boreal Forest Ridge Ground -->
+  <path d="M 0,580 L 1200,580 L 1200,675 L 0,675 Z" fill="#0f172a" />
+  <!-- Pine trees silhouette -->
+  <g fill="#020617">
+    <polygon points="50,580 65,520 80,580" />
+    <polygon points="75,580 90,530 105,580" />
+    <polygon points="120,580 135,510 150,580" />
+    <polygon points="180,580 200,500 220,580" />
+    <polygon points="850,580 870,510 890,580" />
+    <polygon points="920,580 940,490 960,580" />
+    <polygon points="1020,580 1040,515 1060,580" />
+    <polygon points="1110,580 1130,520 1150,580" />
+  </g>
+
+  <!-- Intense Boreal Megafire Base (Thermal Updraft Core) -->
+  <path d="M 380,580 Q 480,530 600,530 Q 720,530 820,580 Z" fill="url(#fireGrad)" filter="url(#fireGlow)" />
+  <g fill="#fbbf24" opacity="0.9">
+    <polygon points="450,580 470,510 490,580" />
+    <polygon points="520,580 550,480 580,580" />
+    <polygon points="610,580 640,470 670,580" />
+    <polygon points="700,580 730,500 760,580" />
+  </g>
+
+  <!-- Pyrocumulonimbus (PyroCb) Violent Chimney Column -->
+  <path d="M 450,530 C 430,420 480,340 500,280 C 520,220 490,170 320,130 C 180,100 150,50 300,40 C 500,30 700,30 900,40 C 1050,50 1020,100 880,130 C 710,170 680,220 700,280 C 720,340 770,420 750,530 Z" fill="url(#smokeAnvilGrad)" opacity="0.95" />
+
+  <!-- Lightning within PyroCb Cloud -->
+  <path d="M 520,240 L 490,290 L 530,310 L 480,380" fill="none" stroke="#fef08a" stroke-width="3" filter="url(#fireGlow)" />
+  <path d="M 680,210 L 710,260 L 670,280 L 720,350" fill="none" stroke="#fef08a" stroke-width="2.5" filter="url(#fireGlow)" />
+
+  <!-- Stratospheric Injection Line (Tropopause at 11-13 km) -->
+  <line x1="50" y1="130" x2="1150" y2="130" stroke="#f59e0b" stroke-width="2" stroke-dasharray="10,6" opacity="0.8" />
+  <text x="70" y="122" fill="#fbbf24" font-family="sans-serif" font-size="13" font-weight="700">Tropopause (~12.5 km) - Stratospheric Aerosol Injection Zone</text>
+
+  <!-- Downwind Smoke Plume (Spreading Eastward) -->
+  <path d="M 880,130 C 1000,140 1150,150 1200,160 L 1200,280 C 1100,270 950,250 880,220 Z" fill="#78350f" opacity="0.6" />
+
+  <!-- Telemetry HUD & Chemistry Dashboard -->
+  <g transform="translate(60, 470)">
+    <rect width="330" height="155" rx="14" fill="#0f172a" fill-opacity="0.9" stroke="#1e293b" stroke-width="1.5" />
+    <text x="20" y="30" fill="#f97316" font-family="system-ui, sans-serif" font-size="14" font-weight="800">PYROCB DYNAMICS &amp; AQI METRICS</text>
+    <text x="20" y="58" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">Updraft Velocity: <tspan fill="#ef4444" font-weight="700">Up to 48 m/s (~170 km/h)</tspan></text>
+    <text x="20" y="83" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">Aerosol Optical Depth (AOD): <tspan fill="#f59e0b" font-weight="700">4.85 (Extreme Light Extinction)</tspan></text>
+    <text x="20" y="108" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">Peak Ground PM2.5: <tspan fill="#ef4444" font-weight="700">620 µg/m³ (AQI 10+ Very High)</tspan></text>
+    <text x="20" y="133" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">Stratospheric Lifespan: <tspan fill="#38bdf8" font-weight="700">3 to 8 Months Global Circumpolar</tspan></text>
+  </g>
+
+  <g transform="translate(800, 470)">
+    <rect width="340" height="155" rx="14" fill="#0f172a" fill-opacity="0.9" stroke="#1e293b" stroke-width="1.5" />
+    <text x="20" y="30" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="14" font-weight="800">ATMOSPHERIC CHEMISTRY IMPACT</text>
+    <text x="20" y="58" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">Black Carbon &amp; Organic Carbon: <tspan fill="#ffffff" font-weight="700">Solar Radiation Absorption</tspan></text>
+    <text x="20" y="83" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">Nocturnal Inversion Trapping: <tspan fill="#f59e0b" font-weight="700">Valley Stagnation (Kamloops/Okanagan)</tspan></text>
+    <text x="20" y="108" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">Fire-Generated Lightning: <tspan fill="#ef4444" font-weight="700">Secondary Wildfire Ignitions (Dry strikes)</tspan></text>
+    <text x="20" y="133" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">Satellite Sensor: <tspan fill="#22c55e" font-weight="700">VIIRS &amp; MODIS Thermal Fire Pixels</tspan></text>
+  </g>
+
+  <text x="60" y="55" fill="#ffffff" font-family="system-ui, sans-serif" font-size="24" font-weight="900">PYROCUMULONIMBUS CLOUDS &amp; WILDFIRE SMOKE TRANSPORT</text>
+  <text x="60" y="82" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="14" font-weight="600">Thermodynamics of Fire-Driven Thunderstorms Across the Boreal Forest</text>
+</svg>

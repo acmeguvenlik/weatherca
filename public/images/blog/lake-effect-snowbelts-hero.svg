@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="lakeBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="40%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <linearGradient id="bandGrad" x1="0%" y1="0%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.7" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#lakeBg)" />
+
+  <!-- Georgian Bay and Lake Huron Water Contours -->
+  <path d="M 150 180 C 260 140, 360 220, 480 190 C 560 170, 640 240, 720 220 C 780 200, 850 250, 920 210" 
+        fill="none" stroke="#0284c7" stroke-width="6" opacity="0.5" />
+  <path d="M 120 260 C 240 220, 340 300, 460 270 C 540 250, 620 320, 700 300 C 760 280, 830 330, 900 290" 
+        fill="none" stroke="#0369a1" stroke-width="4" opacity="0.4" />
+
+  <!-- Intense Lake Effect Snow Streamer Bands (Narrow 15km corridors) -->
+  <g opacity="0.85">
+    <path d="M 220 200 C 350 240, 500 290, 750 360 C 900 400, 1050 440, 1150 470" 
+          fill="none" stroke="url(#bandGrad)" stroke-width="28" stroke-linecap="round" filter="blur(6px)" />
+    <path d="M 220 200 C 350 240, 500 290, 750 360 C 900 400, 1050 440, 1150 470" 
+          fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" />
+
+    <path d="M 180 320 C 320 350, 480 390, 700 440 C 850 480, 1000 510, 1120 540" 
+          fill="none" stroke="url(#bandGrad)" stroke-width="22" stroke-linecap="round" filter="blur(5px)" />
+  </g>
+
+  <!-- Snow Accumulation Flakes -->
+  <g fill="#e0f2fe" opacity="0.6">
+    <circle cx="450" cy="270" r="4" />
+    <circle cx="580" cy="310" r="3" />
+    <circle cx="720" cy="340" r="5" />
+    <circle cx="830" cy="380" r="4" />
+    <circle cx="950" cy="420" r="6" />
+    <circle cx="680" cy="420" r="3" />
+  </g>
+
+  <!-- Badges -->
+  <rect x="60" y="50" width="380" height="42" rx="12" fill="#0f172a" fill-opacity="0.85" stroke="#38bdf8" stroke-opacity="0.3" />
+  <text x="80" y="76" font-family="monospace" font-size="14" font-weight="700" fill="#38bdf8">GEORGIAN BAY &amp; LAKE HURON SNOWBELTS</text>
+
+  <rect x="840" y="50" width="300" height="42" rx="12" fill="#0f172a" fill-opacity="0.85" stroke="#22c55e" stroke-opacity="0.3" />
+  <text x="860" y="76" font-family="monospace" font-size="14" font-weight="700" fill="#22c55e">FETCH DYNAMICS &amp; SQUALLS</text>
+
+  <!-- Title -->
+  <text x="60" y="520" font-family="system-ui, sans-serif" font-size="38" font-weight="900" fill="#ffffff" letter-spacing="-1">
+    ONTARIO LAKE-EFFECT SNOW SQUALLS
+  </text>
+  <text x="60" y="565" font-family="system-ui, sans-serif" font-size="18" font-weight="500" fill="#94a3b8">
+    How 250km of Open Water Generates 100cm Snow Dumps Over Barrie, Muskoka &amp; London
+  </text>
+</svg>

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <linearGradient id="iceBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="40%" stop-color="#0c2340" />
+      <stop offset="100%" stop-color="#031525" />
+    </linearGradient>
+    <linearGradient id="coldLayerGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0284c7" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.6" />
+    </linearGradient>
+    <linearGradient id="warmLayerGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#f97316" stop-opacity="0.6" />
+    </linearGradient>
+    <filter id="iceGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#iceBg)" />
+
+  <!-- Ground Plane (Sub-zero surface) -->
+  <rect x="0" y="550" width="1200" height="125" fill="#0f172a" />
+  <line x1="0" y1="550" x2="1200" y2="550" stroke="#38bdf8" stroke-width="4" filter="url(#iceGlow)" />
+
+  <!-- Atmospheric Layers Diagram (Altitude vs Temperature) -->
+  <!-- Upper Sub-Zero Snow Layer (> 2500m, Temp < 0°C) -->
+  <rect x="60" y="120" width="1080" height="120" fill="url(#coldLayerGrad)" rx="12" />
+  <text x="90" y="160" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="16" font-weight="800">1. UPPER FROZEN LAYER (Alt: 2,500m - 5,000m | Temp: -5°C to -20°C)</text>
+  <text x="90" y="190" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13">Precipitation initiates exclusively as pure snowflakes (hexagonal ice crystals)</text>
+
+  <!-- Middle Warm Air Inversion Layer (1000m - 2500m, Temp > +3°C) -->
+  <rect x="60" y="260" width="1080" height="130" fill="url(#warmLayerGrad)" rx="12" />
+  <text x="90" y="300" fill="#fb923c" font-family="system-ui, sans-serif" font-size="16" font-weight="800">2. ELEVATED WARM NOSE INVERSION (Alt: 800m - 2,200m | Temp: +2°C to +6°C)</text>
+  <text x="90" y="330" fill="#fed7aa" font-family="system-ui, sans-serif" font-size="13">Snow completely melts into liquid raindrops as it passes through maritime tropical air wedge</text>
+
+  <!-- Lower Sub-Freezing Shallow Surface Layer (< 800m, Temp < 0°C) -->
+  <rect x="60" y="410" width="1080" height="120" fill="url(#coldLayerGrad)" rx="12" />
+  <text x="90" y="450" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="16" font-weight="800">3. SHALLOW SUB-FREEZING DRAINAGE LAYER (Surface to 800m | Temp: -1°C to -6°C)</text>
+  <text x="90" y="480" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="13">Raindrops become supercooled liquid droplets (remain liquid until striking surface structures, instantly freezing into glaze)</text>
+
+  <!-- Falling particle illustrations -->
+  <!-- Snowflakes in Layer 1 -->
+  <g fill="#ffffff" font-size="20">
+    <text x="650" y="170">❄</text>
+    <text x="750" y="200">❄</text>
+    <text x="850" y="160">❄</text>
+    <text x="950" y="190">❄</text>
+  </g>
+
+  <!-- Raindrops in Layer 2 -->
+  <g fill="#38bdf8" font-size="18">
+    <text x="660" y="320">💧</text>
+    <text x="760" y="350">💧</text>
+    <text x="860" y="310">💧</text>
+    <text x="960" y="340">💧</text>
+  </g>
+
+  <!-- Supercooled droplets in Layer 3 striking power lines -->
+  <g fill="#93c5fd" font-size="18">
+    <text x="660" y="470">💧</text>
+    <text x="760" y="490">💧</text>
+    <text x="860" y="460">💧</text>
+  </g>
+
+  <!-- Collapsed Power Transmission Tower on Right -->
+  <g transform="translate(1000, 500)">
+    <line x1="-30" y1="50" x2="30" y2="-50" stroke="#94a3b8" stroke-width="4" />
+    <line x1="30" y1="50" x2="-30" y2="-50" stroke="#94a3b8" stroke-width="4" />
+    <line x1="-50" y1="0" x2="50" y2="0" stroke="#94a3b8" stroke-width="4" />
+    <!-- Glaze Ice coating on wires -->
+    <path d="M -90, -40 Q 0, -10 90, -40" fill="none" stroke="#e0f2fe" stroke-width="8" filter="url(#iceGlow)" />
+    <text x="0" y="-60" text-anchor="middle" fill="#ef4444" font-family="sans-serif" font-size="11" font-weight="900">75mm Radial Ice Load (Overload Failure)</text>
+  </g>
+
+  <text x="60" y="55" fill="#ffffff" font-family="system-ui, sans-serif" font-size="24" font-weight="900">THERMODYNAMICS OF FREEZING RAIN &amp; GLAZE ICE STORMS</text>
+  <text x="60" y="82" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="14" font-weight="600">The Saint Lawrence Valley Cold Air Damming Mechanism (Great Ice Storm Physics)</text>
+</svg>

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="1000" height="500">
+  <defs>
+    <linearGradient id="chartBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1000" height="500" fill="url(#chartBg)" rx="20" stroke="#334155" stroke-width="2" />
+
+  <!-- Header -->
+  <text x="50" y="50" font-family="system-ui, sans-serif" font-size="22" font-weight="900" fill="#ffffff">
+    ENVIRONMENT CANADA WIND CHILL RISK &amp; FROSTBITE MATRIX
+  </text>
+  <text x="50" y="75" font-family="monospace" font-size="12" fill="#94a3b8">
+    Formula: W = 13.12 + 0.6215·T - 11.37·V^0.16 + 0.3965·T·V^0.16 (T in °C, V in km/h)
+  </text>
+
+  <!-- Table Container -->
+  <g transform="translate(50, 100)">
+    <!-- Header Row -->
+    <rect x="0" y="0" width="900" height="40" fill="#1e293b" rx="8" />
+    <text x="20" y="25" font-family="sans-serif" font-size="13" font-weight="700" fill="#f8fafc">Wind Chill Index</text>
+    <text x="220" y="25" font-family="sans-serif" font-size="13" font-weight="700" fill="#f8fafc">Public Risk Level</text>
+    <text x="440" y="25" font-family="sans-serif" font-size="13" font-weight="700" fill="#f8fafc">Time to Exposed Skin Frostbite</text>
+    <text x="730" y="25" font-family="sans-serif" font-size="13" font-weight="700" fill="#f8fafc">Required Protection</text>
+
+    <!-- Row 1: 0 to -9 -->
+    <rect x="0" y="48" width="900" height="48" fill="#0f172a" rx="6" />
+    <text x="20" y="78" font-family="monospace" font-size="13" font-weight="700" fill="#38bdf8">0 to -9</text>
+    <text x="220" y="78" font-family="sans-serif" font-size="12" fill="#cbd5e1">Low Risk</text>
+    <text x="440" y="78" font-family="sans-serif" font-size="12" fill="#94a3b8">Slight risk with prolonged exposure</text>
+    <text x="730" y="78" font-family="sans-serif" font-size="12" fill="#94a3b8">Standard winter coat &amp; gloves</text>
+
+    <!-- Row 2: -10 to -27 -->
+    <rect x="0" y="104" width="900" height="48" fill="#0f172a" rx="6" />
+    <text x="20" y="134" font-family="monospace" font-size="13" font-weight="700" fill="#60a5fa">-10 to -27</text>
+    <text x="220" y="134" font-family="sans-serif" font-size="12" font-weight="600" fill="#93c5fd">Moderate Risk</text>
+    <text x="440" y="134" font-family="sans-serif" font-size="12" fill="#cbd5e1">Hypothermia risk if wet; uninsulated</text>
+    <text x="730" y="134" font-family="sans-serif" font-size="12" fill="#cbd5e1">Insulated layers, toque, boots</text>
+
+    <!-- Row 3: -28 to -39 -->
+    <rect x="0" y="160" width="900" height="48" fill="#1e1b4b" rx="6" stroke="#4338ca" stroke-width="1" />
+    <text x="20" y="190" font-family="monospace" font-size="13" font-weight="700" fill="#a5b4fc">-28 to -39</text>
+    <text x="220" y="190" font-family="sans-serif" font-size="12" font-weight="700" fill="#818cf8">High Risk</text>
+    <text x="440" y="190" font-family="sans-serif" font-size="12" font-weight="700" fill="#facc15">10 to 30 minutes</text>
+    <text x="730" y="190" font-family="sans-serif" font-size="12" fill="#e2e8f0">Wind-resistant shell, no skin exposed</text>
+
+    <!-- Row 4: -40 to -47 -->
+    <rect x="0" y="216" width="900" height="48" fill="#3b0764" rx="6" stroke="#9333ea" stroke-width="1" />
+    <text x="20" y="246" font-family="monospace" font-size="13" font-weight="800" fill="#f472b6">-40 to -47</text>
+    <text x="220" y="246" font-family="sans-serif" font-size="12" font-weight="800" fill="#e879f9">Severe Hazard</text>
+    <text x="440" y="246" font-family="sans-serif" font-size="12" font-weight="800" fill="#fb923c">5 to 10 minutes</text>
+    <text x="730" y="246" font-family="sans-serif" font-size="12" fill="#f1f5f9">Balaclava, ski goggles, emergency kit</text>
+
+    <!-- Row 5: -48 to -54 -->
+    <rect x="0" y="272" width="900" height="48" fill="#450a0a" rx="6" stroke="#dc2626" stroke-width="1.5" />
+    <text x="20" y="302" font-family="monospace" font-size="13" font-weight="900" fill="#fca5a5">-48 to -54</text>
+    <text x="220" y="302" font-family="sans-serif" font-size="12" font-weight="900" fill="#ef4444">Extreme Emergency</text>
+    <text x="440" y="302" font-family="sans-serif" font-size="12" font-weight="900" fill="#ef4444">2 to 5 minutes</text>
+    <text x="730" y="302" font-family="sans-serif" font-size="12" fill="#ffffff">Hazardous outdoor travel; stay indoors</text>
+
+    <!-- Row 6: -55 and below -->
+    <rect x="0" y="328" width="900" height="48" fill="#7f1d1d" rx="6" stroke="#f87171" stroke-width="2" />
+    <text x="20" y="358" font-family="monospace" font-size="13" font-weight="900" fill="#ffffff">&lt; -55 (Lethal)</text>
+    <text x="220" y="358" font-family="sans-serif" font-size="12" font-weight="900" fill="#ffffff">LETHAL THRESHOLD</text>
+    <text x="440" y="358" font-family="sans-serif" font-size="13" font-weight="900" fill="#ffffff">Under 2 minutes</text>
+    <text x="730" y="358" font-family="sans-serif" font-size="12" font-weight="800" fill="#fecaca">Total outdoor travel prohibition</text>
+  </g>
+</svg>

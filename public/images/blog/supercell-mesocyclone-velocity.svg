@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050811" />
+      <stop offset="100%" stop-color="#0b1329" />
+    </linearGradient>
+    <radialGradient id="inboundGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00f0ff" />
+      <stop offset="60%" stop-color="#0088cc" />
+      <stop offset="100%" stop-color="#002244" />
+    </radialGradient>
+    <radialGradient id="outboundGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff0055" />
+      <stop offset="60%" stop-color="#aa0033" />
+      <stop offset="100%" stop-color="#440011" />
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="480" fill="url(#bgGrad)" />
+
+  <!-- Radar Range Rings -->
+  <g stroke="#1e293b" stroke-width="1" fill="none">
+    <circle cx="400" cy="240" r="80" />
+    <circle cx="400" cy="240" r="150" />
+    <circle cx="400" cy="240" r="210" />
+    <line x1="190" y1="240" x2="610" y2="240" stroke-dasharray="4,4" />
+    <line x1="400" y1="30" x2="400" y2="450" stroke-dasharray="4,4" />
+  </g>
+
+  <!-- Inbound Velocity Couplet (Green/Cyan towards radar) -->
+  <path d="M 370,180 C 330,160 300,210 320,260 C 340,290 380,280 380,240 Z" fill="url(#inboundGrad)" opacity="0.85" />
+  
+  <!-- Outbound Velocity Couplet (Red/Pink away from radar) -->
+  <path d="M 430,180 C 470,160 500,210 480,260 C 460,290 420,280 420,240 Z" fill="url(#outboundGrad)" opacity="0.85" />
+
+  <!-- Hook Echo Outline Overlay -->
+  <path d="M 310,230 Q 350,290 400,290 Q 450,280 470,220 Q 420,180 360,190 Z" fill="none" stroke="#fbbf24" stroke-width="2" stroke-dasharray="3,3" />
+
+  <!-- Tornado Vortex Signature (TVS) Center Point -->
+  <circle cx="400" cy="235" r="8" fill="#ffffff" stroke="#e11d48" stroke-width="3" />
+  <polygon points="400,205 408,225 392,225" fill="#f43f5e" />
+  <polygon points="400,265 408,245 392,245" fill="#38bdf8" />
+
+  <!-- Velocity Scale Bar -->
+  <rect x="650" y="80" width="24" height="280" rx="4" fill="#0f172a" stroke="#334155" />
+  <rect x="652" y="82" width="20" height="65" fill="#ff0055" />
+  <rect x="652" y="147" width="20" height="65" fill="#aa0033" />
+  <rect x="652" y="212" width="20" height="20" fill="#334155" />
+  <rect x="652" y="232" width="20" height="60" fill="#0088cc" />
+  <rect x="652" y="292" width="20" height="66" fill="#00f0ff" />
+  
+  <text x="685" y="95" fill="#f43f5e" font-size="10" font-family="monospace">+70 kts</text>
+  <text x="685" y="225" fill="#94a3b8" font-size="10" font-family="monospace">0 kts</text>
+  <text x="685" y="355" fill="#38bdf8" font-size="10" font-family="monospace">-70 kts</text>
+
+  <!-- Labels -->
+  <rect x="50" y="70" width="220" height="110" rx="8" fill="#0f172a" fill-opacity="0.85" stroke="#38bdf8" stroke-width="1" />
+  <text x="65" y="95" fill="#ffffff" font-size="13" font-weight="bold">Mesocyclone Velocity Signature</text>
+  <text x="65" y="120" fill="#38bdf8" font-size="11">● Inbound (Green/Cyan): -62 kts</text>
+  <text x="65" y="138" fill="#f43f5e" font-size="11">● Outbound (Red/Pink): +68 kts</text>
+  <text x="65" y="156" fill="#fbbf24" font-size="11">● Gate-to-Gate Shear: Δ130 kts</text>
+  <text x="65" y="172" fill="#a78bfa" font-size="10">TVS Confirmed (ECCC Dual-Pol)</text>
+
+  <!-- Header -->
+  <text x="50" y="35" fill="#38bdf8" font-size="14" font-weight="bold">DOPPLER RADAR STORM-RELATIVE VELOCITY COUPLET</text>
+  <text x="540" y="35" fill="#94a3b8" font-size="11">Prairie Severe Storms Telemetry</text>
+</svg>

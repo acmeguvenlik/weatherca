@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="capeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(244, 63, 94, 0.4)" />
+      <stop offset="100%" stop-color="rgba(251, 146, 60, 0.2)" />
+    </linearGradient>
+    <linearGradient id="cinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(56, 189, 248, 0.3)" />
+      <stop offset="100%" stop-color="rgba(99, 102, 241, 0.15)" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="480" fill="url(#bgGrad)" />
+
+  <!-- Grid Isobars (Pressure hPa) -->
+  <g stroke="#1e293b" stroke-width="1">
+    <line x1="80" y1="60" x2="740" y2="60" />
+    <line x1="80" y1="120" x2="740" y2="120" />
+    <line x1="80" y1="180" x2="740" y2="180" />
+    <line x1="80" y1="250" x2="740" y2="250" />
+    <line x1="80" y1="330" x2="740" y2="330" />
+    <line x1="80" y1="420" x2="740" y2="420" />
+  </g>
+
+  <!-- Skewed Isotherms (Temperature Lines 45 deg) -->
+  <g stroke="#334155" stroke-width="0.75" stroke-dasharray="3,3">
+    <line x1="120" y1="420" x2="300" y2="60" />
+    <line x1="220" y1="420" x2="400" y2="60" />
+    <line x1="320" y1="420" x2="500" y2="60" />
+    <line x1="420" y1="420" x2="600" y2="60" />
+    <line x1="520" y1="420" x2="700" y2="60" />
+  </g>
+
+  <!-- Axis Pressure Labels -->
+  <text x="35" y="65" fill="#64748b" font-size="11" font-family="monospace">200 hPa</text>
+  <text x="35" y="125" fill="#64748b" font-size="11" font-family="monospace">300 hPa</text>
+  <text x="35" y="185" fill="#64748b" font-size="11" font-family="monospace">500 hPa</text>
+  <text x="35" y="255" fill="#64748b" font-size="11" font-family="monospace">700 hPa</text>
+  <text x="35" y="335" fill="#64748b" font-size="11" font-family="monospace">850 hPa</text>
+  <text x="30" y="425" fill="#64748b" font-size="11" font-family="monospace">1000 hPa</text>
+
+  <!-- CAPE Positive Area Fill -->
+  <polygon points="410,330 450,250 420,180 340,120 280,75 320,75 390,120 490,180 520,250 480,330" fill="url(#capeGrad)" />
+  <!-- CIN Negative Area Fill -->
+  <polygon points="460,420 410,330 440,330 480,420" fill="url(#cinGrad)" />
+
+  <!-- Environmental Temperature Curve (T) - Red -->
+  <path d="M 480,420 Q 450,320 420,250 T 340,150 T 260,60" fill="none" stroke="#f43f5e" stroke-width="3.5" />
+  <!-- Dewpoint Profile (Td) - Green -->
+  <path d="M 430,420 Q 380,320 330,250 T 240,160 T 170,60" fill="none" stroke="#10b981" stroke-width="3" stroke-dasharray="4,2" />
+  <!-- Ascending Air Parcel Curve (Tp) - Orange -->
+  <path d="M 480,420 Q 400,330 490,250 T 420,140 T 260,60" fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="2,2" />
+
+  <!-- Labels on Sounding -->
+  <rect x="520" y="80" width="200" height="90" rx="8" fill="#1e293b" fill-opacity="0.8" stroke="#38bdf8" stroke-width="1" />
+  <text x="535" y="105" fill="#f8fafc" font-size="12" font-weight="bold">Thermodynamic Indices</text>
+  <text x="535" y="125" fill="#fb7185" font-size="11">SBCAPE: 2,850 J/kg</text>
+  <text x="535" y="142" fill="#38bdf8" font-size="11">0-3km Helicity: 320 m²/s²</text>
+  <text x="535" y="159" fill="#34d399" font-size="11">Lifted Index (LI): -6.8°C</text>
+
+  <!-- LFC, LCL, EL markers -->
+  <circle cx="410" cy="330" r="5" fill="#38bdf8" />
+  <text x="422" y="335" fill="#38bdf8" font-size="11" font-weight="bold">LFC (850 hPa)</text>
+
+  <circle cx="460" cy="370" r="5" fill="#a78bfa" />
+  <text x="472" y="375" fill="#a78bfa" font-size="11" font-weight="bold">LCL (920 hPa)</text>
+
+  <circle cx="260" cy="60" r="5" fill="#fb7185" />
+  <text x="272" y="65" fill="#fb7185" font-size="11" font-weight="bold">Equilibrium Level (EL)</text>
+
+  <!-- Header and Title -->
+  <text x="80" y="35" fill="#38bdf8" font-size="14" font-weight="bold">SKEW-T LOG-P THERMODYNAMIC SOUNDING PROFILE</text>
+  <text x="540" y="35" fill="#94a3b8" font-size="11">WeatherCA Meteorological Physics Lab</text>
+</svg>

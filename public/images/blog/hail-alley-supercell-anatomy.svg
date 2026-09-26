@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <linearGradient id="skyStormGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="35%" stop-color="#0f172a" />
+      <stop offset="70%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#064e3b" />
+    </linearGradient>
+    <linearGradient id="updraftGrad" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.9" />
+    </linearGradient>
+    <linearGradient id="hailCoreGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#059669" stop-opacity="0.8" />
+      <stop offset="60%" stop-color="#10b981" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.9" />
+    </linearGradient>
+    <filter id="glowStorm" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#skyStormGrad)" />
+
+  <!-- Alberta Foothills Landscape -->
+  <path d="M 0,560 Q 200,500 450,560 Q 750,590 1200,560 L 1200,675 L 0,675 Z" fill="#064e3b" opacity="0.6" />
+  <path d="M 0,590 L 1200,590 L 1200,675 L 0,675 Z" fill="#022c22" />
+
+  <!-- Rocky Mountains Silhouette in background -->
+  <polygon points="0,560 80,440 180,520 280,410 400,560" fill="#0f172a" opacity="0.9" />
+  <text x="80" y="470" fill="#64748b" font-family="sans-serif" font-size="12" font-weight="700">Canadian Rockies (Elev. 3000m+)</text>
+
+  <!-- Giant Mesocyclone Supercell Cloud Structure -->
+  <!-- Overshooting Top -->
+  <ellipse cx="680" cy="110" rx="90" ry="40" fill="#f8fafc" opacity="0.95" />
+  <text x="680" y="105" text-anchor="middle" fill="#0f172a" font-family="sans-serif" font-size="11" font-weight="800">Overshooting Top (15 km)</text>
+
+  <!-- Massive Anvil (Cirrus Shield) -->
+  <path d="M 300,140 C 450,110 900,100 1150,130 C 1100,200 950,220 850,220 C 600,220 400,240 300,140 Z" fill="#e2e8f0" opacity="0.9" />
+
+  <!-- Striated Updraft Vault (Barber-Pole Structure) -->
+  <path d="M 520,530 C 500,420 540,320 600,240 C 750,240 780,350 750,530 Z" fill="#334155" opacity="0.95" />
+
+  <!-- Forward-Flank Downdraft (FFD) & Hail Shaft (Greenish Hydrometeor Core) -->
+  <polygon points="750,240 920,240 980,590 780,590" fill="url(#hailCoreGrad)" filter="url(#glowStorm)" opacity="0.85" />
+  <text x="880" y="420" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="900">HAIL CORE (Z &gt; 65 dBZ)</text>
+
+  <!-- Hailstones falling -->
+  <g fill="#ffffff" stroke="#059669" stroke-width="1.5">
+    <circle cx="820" cy="480" r="10" />
+    <circle cx="850" cy="520" r="14" />
+    <circle cx="890" cy="490" r="18" />
+    <circle cx="930" cy="540" r="12" />
+    <circle cx="870" cy="560" r="16" />
+    <circle cx="950" cy="510" r="9" />
+  </g>
+  <text x="890" y="585" text-anchor="middle" fill="#fef08a" font-family="sans-serif" font-size="12" font-weight="800">Grapefruit Hail (70-100 mm)</text>
+
+  <!-- Rotating Updraft Arrows (Mesocyclone) -->
+  <g fill="none" stroke="url(#updraftGrad)" stroke-width="6" stroke-linecap="round">
+    <path d="M 560,510 C 540,430 600,380 660,350" />
+    <path d="M 640,490 C 620,400 680,330 710,270" />
+  </g>
+
+  <!-- Wall Cloud & Tornado Funnel -->
+  <path d="M 540,510 L 620,510 L 600,550 L 560,550 Z" fill="#0f172a" />
+  <path d="M 570,550 Q 560,570 580,590 L 590,590 Q 580,570 585,550 Z" fill="#1e293b" />
+  <text x="520" y="575" fill="#f87171" font-family="sans-serif" font-size="11" font-weight="800">Wall Cloud</text>
+
+  <!-- Telemetry HUD Card -->
+  <g transform="translate(60, 480)">
+    <rect width="340" height="150" rx="14" fill="#0f172a" fill-opacity="0.9" stroke="#1e293b" stroke-width="1.5" />
+    <text x="20" y="30" fill="#10b981" font-family="system-ui, sans-serif" font-size="14" font-weight="800">HAIL ALLEY DYNAMICS (ALBERTA)</text>
+    <text x="20" y="58" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">Convective Available Potential Energy: <tspan fill="#ef4444" font-weight="700">CAPE &gt; 3800 J/kg</tspan></text>
+    <text x="20" y="83" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">0-6 km Bulk Wind Shear: <tspan fill="#f59e0b" font-weight="700">55 Knots (Speed &amp; Directional)</tspan></text>
+    <text x="20" y="108" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">Dryline / Foothills Convergence: <tspan fill="#38bdf8" font-weight="700">Rocky Mountain Cap Ejection</tspan></text>
+    <text x="20" y="130" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Radar Hydrometeor: <tspan fill="#22c55e" font-weight="700">Zdr &lt; 0 dB with high Z (Giant Hail)</tspan></text>
+  </g>
+
+  <text x="60" y="55" fill="#ffffff" font-family="system-ui, sans-serif" font-size="24" font-weight="900">SUPERCELL ANATOMY &amp; ALBERTA HAIL ALLEY</text>
+  <text x="60" y="82" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="14" font-weight="600">The Physics of Severe Mesocyclones, CAPE Explosions, and Giant Hailstones</text>
+</svg>
