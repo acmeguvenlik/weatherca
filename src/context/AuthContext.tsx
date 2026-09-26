@@ -45,15 +45,15 @@ interface AuthContextType {
 
 const DEFAULT_USERS: User[] = [
   {
-    id: 'usr_admin_01',
-    name: 'Chief Meteorological Officer',
-    email: 'admin@weatherca.net',
+    id: 'usr_master_admin',
+    name: 'WeatherCA Master Administrator',
+    email: 'master@weatherca.net',
     role: 'admin',
     status: 'active',
-    avatar: '🇨🇦',
-    favorites: ['toronto', 'vancouver', 'montreal'],
+    avatar: '🛡️',
+    favorites: ['toronto', 'montreal', 'vancouver', 'calgary'],
     notificationsEnabled: true,
-    createdAt: '2025-01-10',
+    createdAt: '2025-01-01',
   },
   {
     id: 'usr_editor_01',
@@ -89,18 +89,47 @@ const DEFAULT_BROADCAST: BroadcastAlert = {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(() => {
-    if (typeof window !== 'undefined') {
+  // STRICT SECURITY: Default is null. Never automatically authenticate any visitor!
+  const [user, setUser] = useState<User | null>(null);
+
+  // Read active session strictly from sessionStorage on client mount
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    // Purge any legacy localStorage leaks immediately
+    try {
+      localStorage.removeItem('weatherca_current_user');
+    } catch {
+      // ignore
+    }
+
+    // Load active session from sessionStorage only
+    try {
+      const activeSession = sessionStorage.getItem('weatherca_auth_session');
+      if (activeSession) {
+        setUser(JSON.parse(activeSession));
+      }
+    } catch {
+      sessionStorage.removeItem('weatherca_auth_session');
+    }
+
+    // INSTANT LOGOUT ON TAB/WINDOW CLOSE
+    const handleClose = () => {
       try {
-        const saved = localStorage.getItem('weatherca_current_user');
-        if (saved) return JSON.parse(saved);
-        localStorage.setItem('weatherca_current_user', JSON.stringify(DEFAULT_USERS[0]));
+        sessionStorage.removeItem('weatherca_auth_session');
       } catch {
         // ignore
       }
-    }
-    return DEFAULT_USERS[0];
-  });
+    };
+
+    window.addEventListener('beforeunload', handleClose);
+    window.addEventListener('pagehide', handleClose);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleClose);
+      window.removeEventListener('pagehide', handleClose);
+    };
+  }, []);
 
   const [allUsers, setAllUsers] = useState<User[]>(() => {
     if (typeof window !== 'undefined') {
@@ -131,18 +160,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.setItem('weatherca_users', JSON.stringify(users));
   };
 
-  const login = async (email: string, _pass: string): Promise<{ success: boolean; error?: string }> => {
-    const found = allUsers.find((u) => u.email.toLowerCase() === email.toLowerCase());
-    if (!found) {
-      return { success: false, error: 'User not found. Check credentials or register a new account.' };
-    }
-    if (found.status === 'suspended') {
-      return { success: false, error: 'This account has been suspended by an administrator.' };
-    }
+  const login = async (email: string, pass: string): Promise<{ success: boolean; error?: string }> => {
+    try {
+      // 1. Perform server-side authenticated verification
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password: pass }),
+      });
 
-    setUser(found);
-    localStorage.setItem('weatherca_current_user', JSON.stringify(found));
-    return { success: true };
+      const data = await res.json();
+
+      if (res.ok && data.success && data.user) {
+        setUser(data.user);
+        sessionStorage.setItem('weatherca_auth_session', JSON.stringify(data.user));
+        return { success: true };
+      }
+
+      // If server returned a rate limit or explicit invalid credentials error
+      if (data.error) {
+        return { success: false, error: data.error };
+      }
+
+      return { success: false, error: 'Authentication failed. Please verify credentials.' };
+    } catch {
+      return { success: false, error: 'Network error communicating with authentication service.' };
+    }
   };
 
   const register = async (name: string, email: string, _pass: string): Promise<{ success: boolean; error?: string }> => {
@@ -155,7 +198,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       id: `usr_${Date.now()}`,
       name,
       email,
-      role: 'user',
+      role: 'user', // Registered users are ALWAYS standard 'user'
       status: 'active',
       avatar: '🍁',
       favorites: ['toronto', 'vancouver'],
@@ -166,13 +209,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const updated = [...allUsers, newUser];
     saveUsers(updated);
     setUser(newUser);
-    localStorage.setItem('weatherca_current_user', JSON.stringify(newUser));
+    sessionStorage.setItem('weatherca_auth_session', JSON.stringify(newUser));
     return { success: true };
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('weatherca_current_user');
+    if (typeof window !== 'undefined') {
+      try {
+        sessionStorage.removeItem('weatherca_auth_session');
+        localStorage.removeItem('weatherca_current_user');
+        fetch('/api/auth/logout', { method: 'POST' }).catch(() => {});
+      } catch {
+        // ignore
+      }
+    }
   };
 
   const toggleFavorite = (citySlug: string) => {
@@ -184,7 +235,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const updatedUser = { ...user, favorites: newFavs };
     setUser(updatedUser);
-    localStorage.setItem('weatherca_current_user', JSON.stringify(updatedUser));
+    sessionStorage.setItem('weatherca_auth_session', JSON.stringify(updatedUser));
 
     const updatedAll = allUsers.map((u) => (u.id === user.id ? updatedUser : u));
     saveUsers(updatedAll);
@@ -200,7 +251,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (user && user.id === userId) {
       const selfUpdated = { ...user, role };
       setUser(selfUpdated);
-      localStorage.setItem('weatherca_current_user', JSON.stringify(selfUpdated));
+      sessionStorage.setItem('weatherca_auth_session', JSON.stringify(selfUpdated));
     }
   };
 
@@ -241,7 +292,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (user && user.id === userId) {
       const selfUpdated = { ...user, ...data };
       setUser(selfUpdated);
-      localStorage.setItem('weatherca_current_user', JSON.stringify(selfUpdated));
+      sessionStorage.setItem('weatherca_auth_session', JSON.stringify(selfUpdated));
     }
   };
 
@@ -249,7 +300,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!user) return;
     const selfUpdated = { ...user, ...data };
     setUser(selfUpdated);
-    localStorage.setItem('weatherca_current_user', JSON.stringify(selfUpdated));
+    sessionStorage.setItem('weatherca_auth_session', JSON.stringify(selfUpdated));
     const updated = allUsers.map((u) => (u.id === user.id ? selfUpdated : u));
     saveUsers(updated);
   };

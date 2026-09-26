@@ -1,13 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Mail, Lock, User, ArrowRight, AlertCircle, Eye, EyeOff, ShieldCheck } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Mail, Lock, User as UserIcon, ArrowRight, AlertCircle, Eye, EyeOff, ShieldCheck } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
-export default function LoginPage() {
+function LoginFormContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTarget = searchParams.get('redirect') || '';
   const { login, register, user } = useAuth();
 
   const [isRegister, setIsRegister] = useState(false);
@@ -22,12 +24,12 @@ export default function LoginPage() {
   React.useEffect(() => {
     if (user) {
       if (user.role === 'admin') {
-        router.push('/admin');
+        router.push(redirectTarget || '/admin');
       } else {
-        router.push('/account');
+        router.push(redirectTarget && !redirectTarget.startsWith('/admin') ? redirectTarget : '/account');
       }
     }
-  }, [user, router]);
+  }, [user, router, redirectTarget]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,7 +59,11 @@ export default function LoginPage() {
         if (!res.success) {
           setError(res.error || 'Invalid credentials. Please verify your email and password.');
         } else {
-          router.push('/account');
+          if (email.toLowerCase().trim() === 'master@weatherca.net') {
+            router.push(redirectTarget || '/admin');
+          } else {
+            router.push('/account');
+          }
         }
       }
     } catch (err) {
@@ -132,7 +138,7 @@ export default function LoginPage() {
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-slate-300">Full Legal Name</label>
               <div className="relative">
-                <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <UserIcon className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   required
@@ -202,3 +208,16 @@ export default function LoginPage() {
   );
 }
 
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center text-slate-400 text-xs">
+          Initialising secure channel...
+        </div>
+      }
+    >
+      <LoginFormContent />
+    </Suspense>
+  );
+}

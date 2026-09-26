@@ -245,8 +245,8 @@ export const Footer: React.FC = () => {
             <Link href="/tools/climate-export" className="hover:text-emerald-500 transition-colors">
               Climate Data Export
             </Link>
-            <Link href="/admin" className="hover:text-purple-600 dark:hover:text-purple-400 font-semibold transition-colors">
-              Admin Center
+            <Link href="/alerts" className="hover:text-amber-600 dark:hover:text-amber-400 font-semibold transition-colors">
+              Severe Alerts
             </Link>
             <Link href="/sitemap.xml" className="hover:text-slate-900 dark:hover:text-white transition-colors">
               XML Sitemap

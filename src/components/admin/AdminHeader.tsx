@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   Clock,
   ExternalLink,
@@ -21,6 +22,7 @@ interface AdminHeaderProps {
 }
 
 export const AdminHeader: React.FC<AdminHeaderProps> = ({ onToggleMobileSidebar }) => {
+  const router = useRouter();
   const { user, logout, broadcastAlert } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const [utcTime, setUtcTime] = useState<string>('');
@@ -155,7 +157,10 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({ onToggleMobileSidebar 
           </div>
 
           <button
-            onClick={() => logout()}
+            onClick={() => {
+              logout();
+              router.push('/auth/login');
+            }}
             className="p-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 transition-colors cursor-pointer"
             title="Secure Logout from HQ"
           >
