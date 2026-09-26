@@ -6,11 +6,13 @@ import { SITE_CONFIG } from '@/lib/seo';
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
+  display: 'swap',
 });
 
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -69,6 +71,7 @@ import { ThemeProvider } from '@/context/ThemeContext';
 import { AIChatProvider } from '@/context/AIChatContext';
 import { MainLayoutShell } from '@/components/MainLayoutShell';
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export default function RootLayout({
   children,
@@ -102,6 +105,7 @@ export default function RootLayout({
           </AIChatProvider>
         </ThemeProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
