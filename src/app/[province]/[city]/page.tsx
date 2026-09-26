@@ -16,9 +16,14 @@ import { getProvinceBySlug, PROVINCE_LIST } from '@/data/provinces';
 import { CANADIAN_CITIES, getCityBySlug, getCitiesByProvince } from '@/data/canadian-cities';
 import { fetchCityWeather, getWeatherConditionInfo } from '@/lib/weather';
 import { generateCityMetadata, generateWeatherSchema } from '@/lib/seo';
+import { generateCityFaqs, generateCityFaqSchema } from '@/lib/city-faq';
 import { HeroWeatherCard } from '@/components/HeroWeatherCard';
 import { BentoGrid } from '@/components/BentoGrid';
 import { WeatherRadar } from '@/components/WeatherRadar';
+import { CanadaLiveExtremes } from '@/components/CanadaLiveExtremes';
+import { CityFaqSection } from '@/components/CityFaqSection';
+import { NearbyCitiesSection } from '@/components/NearbyCitiesSection';
+import { CommunityWeatherPulse } from '@/components/CommunityWeatherPulse';
 
 export const revalidate = 86400; // 24-hour ISR cache
 
@@ -68,7 +73,9 @@ export default async function CityForecastPage({
   }
 
   const forecast = await fetchCityWeather(city);
-  const schemaJson = generateWeatherSchema(forecast);
+  const weatherSchema = generateWeatherSchema(forecast);
+  const faqs = generateCityFaqs(forecast);
+  const faqSchema = generateCityFaqSchema(faqs);
   const cond = getWeatherConditionInfo(forecast.current.weatherCode, forecast.current.isDay);
 
   // Other cities in the same province for contextual SEO linking
@@ -78,13 +85,21 @@ export default async function CityForecastPage({
 
   return (
     <>
-      {/* Schema.org JSON-LD for Google Rich Results */}
+      {/* 1. Schema.org JSON-LD: WeatherForecast */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJson) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(weatherSchema) }}
+      />
+      {/* 2. Schema.org JSON-LD: FAQPage for Rich Snippets */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-10">
+        {/* National Live Extremes Pulse Header */}
+        <CanadaLiveExtremes />
+
         {/* Navigation Breadcrumbs */}
         <div className="flex items-center gap-2 text-xs font-semibold text-sky-600 dark:text-sky-400">
           <Link href="/" className="hover:underline">
@@ -100,6 +115,9 @@ export default async function CityForecastPage({
 
         {/* Hero Weather Card */}
         <HeroWeatherCard forecast={forecast} />
+
+        {/* Real-Time Citizen Observer Verification Pulse */}
+        <CommunityWeatherPulse cityName={city.name} />
 
         {/* Comprehensive 2026 Bento Grid */}
         <BentoGrid forecast={forecast} />
@@ -175,84 +193,20 @@ export default async function CityForecastPage({
           </Link>
         </section>
 
-        {/* SEO Frequently Asked Questions Section (FAQPage Rich Results) */}
-        <section className="p-6 sm:p-8 rounded-3xl bg-white/85 dark:bg-white/[0.05] border border-slate-200/80 dark:border-white/10 backdrop-blur-xl shadow-xl shadow-slate-200/50 dark:shadow-2xl space-y-6">
-          <div className="flex items-center gap-2.5">
-            <HelpCircle className="w-5 h-5 text-sky-600 dark:text-sky-400" />
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">
-              Frequently Asked Questions About Weather in {city.name}, {province.code}
-            </h2>
-          </div>
+        {/* SEO Interactive FAQ Section with Schema */}
+        <CityFaqSection
+          cityName={city.name}
+          provinceName={province.name}
+          faqs={faqs}
+        />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
-            <div className="space-y-1.5 p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200/70 dark:border-white/5">
-              <h3 className="font-semibold text-slate-900 dark:text-white">
-                What is the current temperature and conditions in {city.name}?
-              </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                As of today, the temperature in {city.name} is {forecast.current.temperature}°C with{' '}
-                {cond.condition.toLowerCase()}. The apparent temperature (feels like) is{' '}
-                {forecast.current.apparentTemperature}°C with relative humidity at{' '}
-                {forecast.current.relativeHumidity}%.
-              </p>
-            </div>
-
-            <div className="space-y-1.5 p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200/70 dark:border-white/5">
-              <h3 className="font-semibold text-slate-900 dark:text-white">
-                How does Wind Chill and Humidex affect {city.name}?
-              </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                {forecast.current.temperature <= 0
-                  ? `With winter temperatures active, the Canadian Wind Chill factor is currently ${forecast.current.windChill ?? forecast.current.temperature}°C. The frostbite risk level is rated as ${forecast.current.frostbiteRiskLevel}.`
-                  : `During warmer conditions, the Canadian Humidex indicates comfort levels. The current Humidex is ${forecast.current.humidex ?? forecast.current.temperature} (${forecast.current.humidexCategory}).`}
-              </p>
-            </div>
-
-            <div className="space-y-1.5 p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200/70 dark:border-white/5">
-              <h3 className="font-semibold text-slate-900 dark:text-white">
-                What is the Air Quality Health Index (AQHI) for {city.name}?
-              </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                The current AQHI for {city.name} is {forecast.airQuality?.aqhi ?? 2} (
-                {forecast.airQuality?.aqhiRiskLevel ?? 'Low Risk'}). It is calculated based on ground-level
-                ozone, fine particulate matter (PM2.5), and nitrogen dioxide levels according to Health Canada
-                standards.
-              </p>
-            </div>
-
-            <div className="space-y-1.5 p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200/70 dark:border-white/5">
-              <h3 className="font-semibold text-slate-900 dark:text-white">
-                Where does the meteorological data for {city.name} come from?
-              </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                Forecasts are generated using high-resolution Canadian Deterministic Prediction System (HRDPS
-                2.5km) and Global Environmental Multiscale (GEM) models alongside official Environment and
-                Climate Change Canada Doppler radar feeds.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Nearby Cities in the Same Province (Internal Linking Powerhouse) */}
-        {nearbyCities.length > 0 && (
-          <section className="space-y-3">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              Other Forecasts in {province.name}
-            </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {nearbyCities.map((c) => (
-                <Link
-                  key={c.slug}
-                  href={`/${province.slug}/${c.slug}`}
-                  className="p-3.5 rounded-xl bg-white/85 hover:bg-white dark:bg-white/[0.04] dark:hover:bg-white/[0.08] border border-slate-200/80 hover:border-sky-300 dark:border-white/5 dark:hover:border-sky-500/30 text-xs transition-all flex items-center justify-between group shadow-sm hover:shadow-md dark:shadow-none"
-                >
-                  <span className="font-medium text-slate-800 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-300">{c.name}</span>
-                  <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-sky-600 dark:group-hover:text-sky-300 group-hover:translate-x-0.5 transition-all" />
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
+        {/* Regional Internal Linking Hub (Nearby Stations & Municipalities) */}
+        <NearbyCitiesSection
+          currentCityName={city.name}
+          provinceSlug={province.slug}
+          provinceName={province.name}
+          nearbyCities={nearbyCities}
+        />
       </div>
     </>
   );

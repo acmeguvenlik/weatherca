@@ -176,6 +176,30 @@ export function getSitemapRoutesForShard(shardId: number, customBaseUrl?: string
         priority: 0.8,
       });
     }
+
+    // High-Intent Programmatic SEO Sub-Routes (Hourly, 14-Day, Radar, Air-Quality, History) for Major Hubs
+    const topHubs = CANADIAN_CITIES.filter((c) => c.featured);
+    const subRouteKeys = [
+      { path: '14-day', priority: 0.85, changeFrequency: 'daily' as const },
+      { path: 'hourly', priority: 0.85, changeFrequency: 'hourly' as const },
+      { path: 'radar', priority: 0.85, changeFrequency: 'always' as const },
+      { path: 'air-quality', priority: 0.8, changeFrequency: 'hourly' as const },
+      { path: 'history', priority: 0.75, changeFrequency: 'monthly' as const },
+    ];
+
+    for (const city of topHubs) {
+      const prov = PROVINCE_LIST.find((p) => p.code === city.provinceCode);
+      const provSlug = prov ? prov.slug : city.provinceCode.toLowerCase();
+
+      for (const sub of subRouteKeys) {
+        routes.push({
+          url: `${baseUrl}/${provSlug}/${city.slug}/${sub.path}`,
+          lastModified: now,
+          changeFrequency: sub.changeFrequency,
+          priority: sub.priority,
+        });
+      }
+    }
   }
 
   // ==========================================
@@ -264,6 +288,32 @@ export function getAllSitemapCatalogEntries(customBaseUrl?: string): SitemapCata
       priority: 0.8,
       lastModified: now,
     });
+  }
+
+  // High-Intent Programmatic Sub-Routes in Shard 0
+  const topHubs = CANADIAN_CITIES.filter((c) => c.featured);
+  for (const city of topHubs) {
+    const prov = PROVINCE_LIST.find((p) => p.code === city.provinceCode);
+    const provSlug = prov ? prov.slug : city.provinceCode.toLowerCase();
+    const subs = [
+      { key: '14-day', label: '14-Day Long Range Trend', freq: 'daily' as const, pri: 0.85 },
+      { key: 'hourly', label: 'Hourly Doppler Forecast', freq: 'hourly' as const, pri: 0.85 },
+      { key: 'radar', label: 'Precipitation Radar', freq: 'always' as const, pri: 0.85 },
+      { key: 'air-quality', label: 'Air Quality & AQHI', freq: 'hourly' as const, pri: 0.8 },
+      { key: 'history', label: '30-Year Climate Normals', freq: 'monthly' as const, pri: 0.75 },
+    ];
+    for (const sub of subs) {
+      entries.push({
+        id: `sub-${city.slug}-${sub.key}`,
+        url: `${baseUrl}/${provSlug}/${city.slug}/${sub.key}`,
+        shardId: 0,
+        category: 'city',
+        entityName: `${city.name} ${sub.label}`,
+        changeFrequency: sub.freq,
+        priority: sub.pri,
+        lastModified: now,
+      });
+    }
   }
 
   // Shards 1 to N Cities
