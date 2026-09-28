@@ -269,9 +269,18 @@ async function fetchCityWeatherInternal(city: CanadianCity): Promise<CityWeather
   const airQualityUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${city.lat}&longitude=${city.lon}&current=pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,ozone&timezone=${encodeURIComponent(city.timezone)}`;
 
   try {
+    const cityTag = `weather:${city.slug.toLowerCase()}`;
+    const provTag = `weather:${city.provinceCode.toLowerCase()}`;
+
     const [weatherRes, airRes] = await Promise.all([
-      fetch(weatherUrl, { next: { revalidate: 86400 }, signal: AbortSignal.timeout(4500) }),
-      fetch(airQualityUrl, { next: { revalidate: 86400 }, signal: AbortSignal.timeout(4500) }).catch(() => null),
+      fetch(weatherUrl, {
+        next: { revalidate: 86400, tags: ['weather', cityTag, provTag] },
+        signal: AbortSignal.timeout(4500),
+      }),
+      fetch(airQualityUrl, {
+        next: { revalidate: 86400, tags: ['air-quality', `aq:${city.slug.toLowerCase()}`, provTag] },
+        signal: AbortSignal.timeout(4500),
+      }).catch(() => null),
     ]);
 
     if (!weatherRes.ok) {

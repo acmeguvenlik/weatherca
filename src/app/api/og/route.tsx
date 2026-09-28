@@ -6,8 +6,8 @@ export const runtime = 'nodejs';
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
-    const city = searchParams.get('city') || 'Canada';
-    const prov = searchParams.get('prov') || 'CA';
+    const city = (searchParams.get('city') || 'Canada').trim();
+    const prov = (searchParams.get('prov') || 'CA').trim().toUpperCase();
     const temp = searchParams.get('temp');
     const cond = searchParams.get('cond') || 'Live Doppler Radar & 14-Day Forecast';
 
