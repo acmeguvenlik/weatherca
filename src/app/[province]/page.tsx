@@ -30,7 +30,7 @@ import { WeatherIcon } from '@/components/WeatherIcons';
 import { WeatherRadar } from '@/components/WeatherRadar';
 import { ProvinceSettlementsDirectory } from '@/components/ProvinceSettlementsDirectory';
 
-export const revalidate = 43200; // 12-hour ISR cache
+export const revalidate = 86400; // 24-hour ISR cache
 
 export async function generateStaticParams() {
   return PROVINCE_LIST.map((prov) => ({

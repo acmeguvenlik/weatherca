@@ -143,6 +143,9 @@ export async function GET(req: NextRequest) {
       {
         width: 1200,
         height: 630,
+        headers: {
+          'Cache-Control': 'public, max-age=604800, s-maxage=2592000, stale-while-revalidate=86400',
+        },
       }
     );
   } catch {

@@ -7,6 +7,8 @@ import { getProvinceBySlug } from '@/data/provinces';
 import { getCityBySlug } from '@/data/canadian-cities';
 import { getCityClimateHistory } from '@/data/canadian-climate-history';
 
+export const revalidate = 2592000; // 30-day ISR cache
+
 export async function generateMetadata({
   params,
 }: {

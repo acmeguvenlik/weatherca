@@ -7,6 +7,8 @@ import { getProvinceBySlug } from '@/data/provinces';
 import { getCityBySlug } from '@/data/canadian-cities';
 import { WeatherRadar } from '@/components/WeatherRadar';
 
+export const revalidate = 604800; // 7-day ISR cache
+
 export async function generateMetadata({
   params,
 }: {

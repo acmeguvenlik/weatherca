@@ -35,7 +35,7 @@ import { HomeHeroSearch } from '@/components/home/HomeHeroSearch';
 import { NationalExtremesBento } from '@/components/home/NationalExtremesBento';
 import { UserFavoritesHub } from '@/components/home/UserFavoritesHub';
 
-export const revalidate = 21600; // 6-hour ISR cache
+export const revalidate = 43200; // 12-hour ISR cache
 
 export default async function HomePage() {
   // Fetch top 12 Canadian economic and provincial centers in parallel

@@ -5,6 +5,7 @@ import { BLOG_POSTS, FLAGSHIP_POSTS, getBlogPostBySlug } from '@/data/blog-posts
 import { BlogPostClientView } from '@/components/blog/BlogPostClientView';
 
 export const dynamicParams = true;
+export const revalidate = 604800; // 7-day ISR cache
 
 export async function generateStaticParams() {
   return FLAGSHIP_POSTS.map((post) => ({

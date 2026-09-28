@@ -2379,36 +2379,63 @@ const PROV_SLUG_TO_CODE: Record<string, string> = {
   nunavut: 'nu',
 };
 
-// In-memory O(1) settlement lookup index
-const settlementsMap = new Map<string, CanadianCity>();
+// Fast primary cities in-memory index (<0.1ms cold start, ~150 items)
+const primaryCitiesMap = new Map<string, CanadianCity>();
 
-function indexCity(city: CanadianCity) {
+function indexCityIntoMap(city: CanadianCity, targetMap: Map<string, CanadianCity>) {
   const pCode = city.provinceCode.toLowerCase();
   const cSlug = city.slug.toLowerCase();
-  settlementsMap.set(`${pCode}:${cSlug}`, city);
+  targetMap.set(`${pCode}:${cSlug}`, city);
 
   // Also map full province slug
   for (const [provSlug, code] of Object.entries(PROV_SLUG_TO_CODE)) {
     if (code === pCode) {
-      settlementsMap.set(`${provSlug}:${cSlug}`, city);
+      targetMap.set(`${provSlug}:${cSlug}`, city);
     }
   }
 }
 
 for (const city of CANADIAN_CITIES) {
-  indexCity(city);
+  indexCityIntoMap(city, primaryCitiesMap);
 }
 
-for (const s of CANADIAN_SETTLEMENTS_RAW) {
-  const key = `${s.provinceCode.toLowerCase()}:${s.slug.toLowerCase()}`;
-  if (!settlementsMap.has(key)) {
-    indexCity(s as CanadianCity);
+// Deep settlement cache (lazily initialized on first access of deep settlements)
+let settlementsMap: Map<string, CanadianCity> | null = null;
+let allSettlementsCache: CanadianCity[] | null = null;
+
+function ensureSettlementsLoaded(): void {
+  if (settlementsMap && allSettlementsCache) return;
+
+  const map = new Map<string, CanadianCity>();
+
+  // 1. Index primary cities
+  for (const city of CANADIAN_CITIES) {
+    indexCityIntoMap(city, map);
   }
+
+  // 2. Index raw settlements
+  for (const s of CANADIAN_SETTLEMENTS_RAW) {
+    const key = `${s.provinceCode.toLowerCase()}:${s.slug.toLowerCase()}`;
+    if (!map.has(key)) {
+      indexCityIntoMap(s as CanadianCity, map);
+    }
+  }
+
+  settlementsMap = map;
+  allSettlementsCache = Array.from(new Set(map.values()));
 }
 
-export const ALL_CANADIAN_SETTLEMENTS: CanadianCity[] = Array.from(
-  new Set(settlementsMap.values())
-);
+// Lazy proxy for ALL_CANADIAN_SETTLEMENTS so module import doesn't block CPU on boot
+export const ALL_CANADIAN_SETTLEMENTS: CanadianCity[] = new Proxy([] as CanadianCity[], {
+  get(target, prop, receiver) {
+    ensureSettlementsLoaded();
+    return Reflect.get(allSettlementsCache!, prop, receiver);
+  },
+  apply(target, thisArg, argumentsList) {
+    ensureSettlementsLoaded();
+    return Reflect.apply(allSettlementsCache as unknown as (...args: unknown[]) => unknown, thisArg, argumentsList);
+  },
+});
 
 // Helper Functions
 export function getCityBySlug(provinceSlugOrCode: string, citySlug: string): CanadianCity | undefined {
@@ -2417,11 +2444,21 @@ export function getCityBySlug(provinceSlugOrCode: string, citySlug: string): Can
   const normCity = citySlug.toLowerCase();
 
   const key = `${normProvince}:${normCity}`;
-  const directMatch = settlementsMap.get(key);
-  if (directMatch) return directMatch;
+  
+  // 1. Instant check against primary cities (0ms CPU)
+  const directPrimary = primaryCitiesMap.get(key);
+  if (directPrimary) return directPrimary;
 
   const resolvedCode = PROV_SLUG_TO_CODE[normProvince] || normProvince.slice(0, 2);
-  return settlementsMap.get(`${resolvedCode}:${normCity}`);
+  const resolvedPrimary = primaryCitiesMap.get(`${resolvedCode}:${normCity}`);
+  if (resolvedPrimary) return resolvedPrimary;
+
+  // 2. Lazy fallback to full settlements index
+  ensureSettlementsLoaded();
+  const directMatch = settlementsMap!.get(key);
+  if (directMatch) return directMatch;
+
+  return settlementsMap!.get(`${resolvedCode}:${normCity}`);
 }
 
 export function getCitiesByProvince(provinceCode: string): CanadianCity[] {
@@ -2433,7 +2470,8 @@ export function getCitiesByProvince(provinceCode: string): CanadianCity[] {
 
 export function getAllSettlementsByProvince(provinceCode: string): CanadianCity[] {
   const pCode = provinceCode.toUpperCase();
-  return ALL_CANADIAN_SETTLEMENTS.filter(
+  ensureSettlementsLoaded();
+  return allSettlementsCache!.filter(
     (c) => c.provinceCode.toUpperCase() === pCode
   ).sort((a, b) => b.population - a.population);
 }

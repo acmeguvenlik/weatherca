@@ -83,6 +83,8 @@ export default async function CityForecastPage({
     .filter((c) => c.slug !== city.slug)
     .slice(0, 8);
 
+  const isMinorSettlement = !city.featured && (city.population || 0) < 5000;
+
   return (
     <>
       {/* 1. Schema.org JSON-LD: WeatherForecast */}
@@ -131,6 +133,7 @@ export default async function CityForecastPage({
             </h2>
             <Link
               href={`/${province.slug}/${city.slug}/radar`}
+              rel={isMinorSettlement ? 'nofollow' : undefined}
               className="text-xs font-semibold text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 flex items-center gap-1 transition-colors"
             >
               <span>Full Screen View</span>
@@ -150,6 +153,7 @@ export default async function CityForecastPage({
         <section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Link
             href={`/${province.slug}/${city.slug}/history`}
+            rel={isMinorSettlement ? 'nofollow' : undefined}
             className="p-5 rounded-3xl bg-indigo-50/90 dark:bg-indigo-950/30 hover:bg-indigo-100 dark:hover:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-500/20 hover:border-indigo-300 dark:hover:border-indigo-500/40 backdrop-blur-xl transition-all group flex flex-col justify-between shadow-sm dark:shadow-none"
           >
             <div>
@@ -172,6 +176,7 @@ export default async function CityForecastPage({
 
           <Link
             href={`/${province.slug}/${city.slug}/air-quality`}
+            rel={isMinorSettlement ? 'nofollow' : undefined}
             className="p-5 rounded-3xl bg-emerald-50/90 dark:bg-emerald-950/30 hover:bg-emerald-100 dark:hover:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-500/20 hover:border-emerald-300 dark:hover:border-emerald-500/40 backdrop-blur-xl transition-all group flex flex-col justify-between shadow-sm dark:shadow-none"
           >
             <div>

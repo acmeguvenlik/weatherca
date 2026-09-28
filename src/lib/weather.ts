@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import {
   CanadianCity,
   Province,
@@ -251,7 +252,7 @@ export function getWeatherConditionInfo(code: number, isDay = 1): WeatherConditi
 // In-memory cache for fast dev/SSG and burst requests
 const forecastCache = new Map<string, { data: CityWeatherForecast; expiresAt: number }>();
 
-export async function fetchCityWeather(city: CanadianCity): Promise<CityWeatherForecast> {
+async function fetchCityWeatherInternal(city: CanadianCity): Promise<CityWeatherForecast> {
   const cacheKey = `${city.provinceCode}-${city.slug}`;
   const cached = forecastCache.get(cacheKey);
   if (cached && cached.expiresAt > Date.now()) {
@@ -269,8 +270,8 @@ export async function fetchCityWeather(city: CanadianCity): Promise<CityWeatherF
 
   try {
     const [weatherRes, airRes] = await Promise.all([
-      fetch(weatherUrl, { next: { revalidate: 3600 }, signal: AbortSignal.timeout(4500) }), // 1-hour Edge cache
-      fetch(airQualityUrl, { next: { revalidate: 7200 }, signal: AbortSignal.timeout(4500) }).catch(() => null),
+      fetch(weatherUrl, { next: { revalidate: 86400 }, signal: AbortSignal.timeout(4500) }),
+      fetch(airQualityUrl, { next: { revalidate: 86400 }, signal: AbortSignal.timeout(4500) }).catch(() => null),
     ]);
 
     if (!weatherRes.ok) {
@@ -468,6 +469,12 @@ export async function fetchCityWeather(city: CanadianCity): Promise<CityWeatherF
     return fallback;
   }
 }
+
+/**
+ * Deduplicated per-request weather fetcher (Next.js SSR / ISR safe)
+ * Prevents multiple network calls between generateMetadata and Page component
+ */
+export const fetchCityWeather = cache(fetchCityWeatherInternal);
 
 /**
  * Resilient realistic fallback weather forecast for build/offline safety

@@ -19,6 +19,8 @@ import {
 } from 'lucide-react';
 import { getSkiResortBySlug, CANADIAN_SKI_RESORTS } from '@/data/canadian-ski-resorts';
 
+export const revalidate = 86400; // 24-hour ISR cache
+
 export async function generateStaticParams() {
   return CANADIAN_SKI_RESORTS.map((resort) => ({
     resort: resort.slug,

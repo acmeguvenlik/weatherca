@@ -1,6 +1,8 @@
 import { MetadataRoute } from 'next';
 import { SITEMAP_SHARDS, getSitemapRoutesForShard } from '@/lib/sitemap-catalog';
 
+export const revalidate = 86400; // 24-hour cache for sitemaps
+
 /**
  * Generates multiple sitemaps (shards) partitioned into 5 logical clusters.
  * Next.js automatically emits:

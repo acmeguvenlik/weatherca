@@ -119,7 +119,16 @@ export function getSettlementsForShard(shardId: number) {
  */
 export function getSitemapRoutesForShard(shardId: number, customBaseUrl?: string): MetadataRoute.Sitemap {
   const baseUrl = customBaseUrl || SITE_CONFIG.domain;
+  
+  // Stable timestamps: Compute deterministic start-of-week and start-of-month dates.
+  // This prevents crawlers (Googlebot, Bingbot) from seeing a newly incremented timestamp on every request
+  // and flooding the infrastructure with continuous emergency re-crawling.
   const now = new Date();
+  const day = now.getUTCDay();
+  const diffToMonday = (day === 0 ? -6 : 1) - day;
+  const stableWeeklyDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + diffToMonday));
+  const stableMonthlyDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
+
   const routes: MetadataRoute.Sitemap = [];
 
   // ==========================================
@@ -128,30 +137,30 @@ export function getSitemapRoutesForShard(shardId: number, customBaseUrl?: string
   if (shardId === 0) {
     // Root & Essential Hubs
     routes.push(
-      { url: baseUrl, lastModified: now, changeFrequency: 'daily', priority: 1.0 },
-      { url: `${baseUrl}/provinces`, lastModified: now, changeFrequency: 'daily', priority: 0.95 },
-      { url: `${baseUrl}/radar`, lastModified: now, changeFrequency: 'daily', priority: 0.95 },
-      { url: `${baseUrl}/alerts`, lastModified: now, changeFrequency: 'daily', priority: 0.95 },
-      { url: `${baseUrl}/ski`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
-      { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: 'daily', priority: 0.85 },
-      { url: `${baseUrl}/tools/calculator`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-      { url: `${baseUrl}/tools/compare`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
-      { url: `${baseUrl}/tools/aurora`, lastModified: now, changeFrequency: 'daily', priority: 0.85 },
-      { url: `${baseUrl}/tools/air-quality`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
-      { url: `${baseUrl}/tools/widget`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-      { url: `${baseUrl}/almanac`, lastModified: now, changeFrequency: 'weekly', priority: 0.85 },
-      { url: `${baseUrl}/highways`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
-      { url: `${baseUrl}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-      { url: `${baseUrl}/contact`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-      { url: `${baseUrl}/methodology`, lastModified: now, changeFrequency: 'monthly', priority: 0.75 },
-      { url: `${baseUrl}/faq`, lastModified: now, changeFrequency: 'monthly', priority: 0.75 }
+      { url: baseUrl, lastModified: stableWeeklyDate, changeFrequency: 'daily', priority: 1.0 },
+      { url: `${baseUrl}/provinces`, lastModified: stableWeeklyDate, changeFrequency: 'daily', priority: 0.95 },
+      { url: `${baseUrl}/radar`, lastModified: stableWeeklyDate, changeFrequency: 'daily', priority: 0.95 },
+      { url: `${baseUrl}/alerts`, lastModified: stableWeeklyDate, changeFrequency: 'daily', priority: 0.95 },
+      { url: `${baseUrl}/ski`, lastModified: stableWeeklyDate, changeFrequency: 'daily', priority: 0.9 },
+      { url: `${baseUrl}/blog`, lastModified: stableWeeklyDate, changeFrequency: 'daily', priority: 0.85 },
+      { url: `${baseUrl}/tools/calculator`, lastModified: stableMonthlyDate, changeFrequency: 'monthly', priority: 0.8 },
+      { url: `${baseUrl}/tools/compare`, lastModified: stableWeeklyDate, changeFrequency: 'weekly', priority: 0.8 },
+      { url: `${baseUrl}/tools/aurora`, lastModified: stableWeeklyDate, changeFrequency: 'daily', priority: 0.85 },
+      { url: `${baseUrl}/tools/air-quality`, lastModified: stableWeeklyDate, changeFrequency: 'daily', priority: 0.9 },
+      { url: `${baseUrl}/tools/widget`, lastModified: stableMonthlyDate, changeFrequency: 'monthly', priority: 0.8 },
+      { url: `${baseUrl}/almanac`, lastModified: stableWeeklyDate, changeFrequency: 'weekly', priority: 0.85 },
+      { url: `${baseUrl}/highways`, lastModified: stableWeeklyDate, changeFrequency: 'daily', priority: 0.9 },
+      { url: `${baseUrl}/about`, lastModified: stableMonthlyDate, changeFrequency: 'monthly', priority: 0.7 },
+      { url: `${baseUrl}/contact`, lastModified: stableMonthlyDate, changeFrequency: 'monthly', priority: 0.7 },
+      { url: `${baseUrl}/methodology`, lastModified: stableMonthlyDate, changeFrequency: 'monthly', priority: 0.75 },
+      { url: `${baseUrl}/faq`, lastModified: stableMonthlyDate, changeFrequency: 'monthly', priority: 0.75 }
     );
 
     // 13 Province & Territory Hubs
     for (const prov of PROVINCE_LIST) {
       routes.push({
         url: `${baseUrl}/${prov.slug}`,
-        lastModified: now,
+        lastModified: stableWeeklyDate,
         changeFrequency: 'daily',
         priority: 0.9,
       });
@@ -161,7 +170,7 @@ export function getSitemapRoutesForShard(shardId: number, customBaseUrl?: string
     for (const resort of CANADIAN_SKI_RESORTS) {
       routes.push({
         url: `${baseUrl}/ski/${resort.slug}`,
-        lastModified: now,
+        lastModified: stableWeeklyDate,
         changeFrequency: 'daily',
         priority: 0.85,
       });
@@ -171,7 +180,7 @@ export function getSitemapRoutesForShard(shardId: number, customBaseUrl?: string
     for (const post of FLAGSHIP_POSTS) {
       routes.push({
         url: `${baseUrl}/blog/${post.slug}`,
-        lastModified: now,
+        lastModified: stableWeeklyDate,
         changeFrequency: 'weekly',
         priority: 0.8,
       });
@@ -194,7 +203,7 @@ export function getSitemapRoutesForShard(shardId: number, customBaseUrl?: string
       for (const sub of subRouteKeys) {
         routes.push({
           url: `${baseUrl}/${provSlug}/${city.slug}/${sub.path}`,
-          lastModified: now,
+          lastModified: stableWeeklyDate,
           changeFrequency: sub.changeFrequency,
           priority: sub.priority,
         });
@@ -213,7 +222,7 @@ export function getSitemapRoutesForShard(shardId: number, customBaseUrl?: string
 
       routes.push({
         url: `${baseUrl}/${provSlug}/${city.slug}`,
-        lastModified: now,
+        lastModified: stableMonthlyDate,
         changeFrequency: 'weekly',
         priority: city.featured ? 0.85 : 0.65,
       });

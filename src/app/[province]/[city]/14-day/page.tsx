@@ -8,7 +8,7 @@ import { getCityBySlug } from '@/data/canadian-cities';
 import { fetchCityWeather, getWeatherConditionInfo } from '@/lib/weather';
 import { WeatherIcon } from '@/components/WeatherIcons';
 
-export const revalidate = 43200; // 12-hour ISR cache
+export const revalidate = 86400; // 24-hour ISR cache
 
 export async function generateMetadata({
   params,
